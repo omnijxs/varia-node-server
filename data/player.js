@@ -1,6 +1,7 @@
 class Player {
     
-    constructor(name, score, teamName, createdAt){
+    constructor(uuid, name, score, teamName, createdAt){
+         this.uuid = uuid;
          this.name = name;
          this.score = score;
          this.teamName = teamName;

@@ -1,5 +1,4 @@
 const expect = require('chai').expect;
-const Player = require('../data/player.js');
 const db = require('../routes.js');
 
 const app = require('../app.js');
@@ -7,43 +6,116 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-describe('GET api/foobar', () => {
+let data = [];
+
+// https://github.com/louischatriot/nedb/
+
+describe('PLAYER: CRUD operations', () => {
 
     beforeEach(done => {
-      db.initDB()
+      data = db.initDB()
       done();
     });
 
     afterEach(done => {
-      db.clearDB()
+      data = db.clearDB()
       done();
     });
 
-    it('GET: Happy path', done => {
+    it('Get player by id: GET /player/:id', done => {
       chai
         .request(app)
-        .get('/api/players')
+        .get('/api/player/' + data[0].uuid)
         .end((err, res) => {
-            const expected = '{"foo":"bar"}'; 
+            
             expect(res.status).to.equal(200);
-            expect(res.body).to.deep.equal(expected);
+
+            const expected = data[0]; 
+            const result = res.body[0];
+
+            expect(playersEqual(expected, result)).to.be.true;
+
             done();
         });
     });
 
-     it('should return foobaz', done => {
+    it('Get all players: GET /players', done => {
       chai
         .request(app)
         .get('/api/players')
         .end((err, res) => {
-            const expected = '{"foo":"baz"}'; 
+            
             expect(res.status).to.equal(200);
-            expect(res.body).to.deep.equal(expected);
+
+            const numberOfPlayers = 1; 
+
+            expect(res.body.length).to.equal(numberOfPlayers);
+            
             done();
         });
     });
+
+  it('Create player: POST /player', done => {
+      chai
+        .request(app)
+        .post('/api/player/')
+        .send({ name: 'John Doe', score: 60400 })
+        .end((err, res) => {
+            
+            expect(res.status).to.equal(200);
+            
+            const result = res.body;
+
+            expect(result.name).to.equal('John Doe');
+            expect(result.score).to.equal(60400);
+
+            done();
+        });
+    });
+
+    it('Update player: PUT /player', done => {
+      chai
+        .request(app)
+        .put('/api/player/')
+        .send({ uuid: data[0].uuid, score: 70800 })
+        .end((err, res) => {
+            
+            expect(res.status).to.equal(200);
+            
+            const result = res.body;
+
+            expect(result.uuid).to.equal(data[0].uuid);
+            expect(result.score).to.equal(70800);
+
+            done();
+        });
+
+    });
+
+    it('Delete player: DELETE /player', done => {
+      chai
+        .request(app)
+        .delete('/api/player/')
+        .send({ uuid: data[0].uuid })
+        .end((err, res) => {
+            
+            expect(res.status).to.equal(200);
+            expect(res.body.numberOfRemoved).to.equal(1);
+
+            done();
+        });
+
+    });
+
   });
 
+function playersEqual(p1, p2){
+  return p1.name === p2.name &&
+          p1.score === p2.score &&
+          p1.teamName === p2.teamName &&
+          p1.uuid === p2.uuid
+
+}
 
   // Test Cases
   /**
@@ -54,6 +126,10 @@ describe('GET api/foobar', () => {
   2. Create a new Player
   3. Update a player
   4. Delete a player
+
+    ADVANCED CRUD
+  5. Mass update
+  6. Limited and full update
 
     QUERY
   1. Query all players by team name
