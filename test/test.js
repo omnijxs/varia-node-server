@@ -77,15 +77,17 @@ describe('PLAYER: CRUD operations', () => {
       chai
         .request(app)
         .put('/api/player/')
-        .send({ uuid: data[0].uuid, score: 70800 })
+        .send({ uuid: data[0].uuid, name: 'John Moe', score: 70800, teamName: 'RED' })
         .end((err, res) => {
             
             expect(res.status).to.equal(200);
             
-            const result = res.body;
+            const result = res.body[0];
 
             expect(result.uuid).to.equal(data[0].uuid);
+            expect(result.name).to.equal('John Moe');
             expect(result.score).to.equal(70800);
+            expect(result.teamName).to.equal('RED');
 
             done();
         });
