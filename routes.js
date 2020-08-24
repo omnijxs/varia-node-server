@@ -29,4 +29,10 @@ router.post('/model', asyncMiddleware(async (req, res) => {
     res.send(model);
 }));
 
+router.get('/foobar', asyncMiddleware(async (req, res) => {
+    res.type('json');
+    res.send(JSON.stringify('{"foo":"bar"}'));
+}));
+
+
 module.exports = router;
