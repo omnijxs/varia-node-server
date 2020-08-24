@@ -33,3 +33,24 @@ describe('GET api/foobar', () => {
         });
     });
   });
+
+
+  // Test Cases
+  /**
+   * 
+
+   CRUD
+  1. Get Player by id
+  2. Create a new Player
+  3. Update a player
+  4. Delete a player
+
+    QUERY
+  1. Query all players by team name
+  2. Query all players with score higher than user input
+  3. Query all players by team name and score less than user input
+  4. Query all players who were created after date
+
+    DASHBOARD
+
+   */
