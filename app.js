@@ -5,6 +5,11 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(function (req, res, next) {
+  res.type('json');
+  next();
+});
+
 app.use('/api', require('./routes'));;
 
 app.listen(8080, function () {

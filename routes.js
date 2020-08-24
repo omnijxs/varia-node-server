@@ -30,7 +30,6 @@ router.post('/model', asyncMiddleware(async (req, res) => {
 }));
 
 router.get('/foobar', asyncMiddleware(async (req, res) => {
-    res.type('json');
     res.send(JSON.stringify('{"foo":"bar"}'));
 }));
 

@@ -19,3 +19,17 @@ describe('GET api/foobar', () => {
         });
     });
   });
+
+  describe('GET api/foobaz', () => {
+    it('should return foobaz', done => {
+      chai
+        .request(app)
+        .get('/api/foobaz')
+        .end((err, res) => {
+            const expected = '{"foo":"baz"}'; 
+            expect(res.status).to.equal(200);
+            expect(res.body).to.deep.equal(expected);
+            done();
+        });
+    });
+  });
