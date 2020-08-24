@@ -4,7 +4,7 @@ const { asyncMiddleware } = require('./middleware');
 const Player = require('./data/player.js');
 
 const Datastore = require('nedb')
-const db = new Datastore();
+let db = new Datastore();
 
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
     const id = req.params.id
@@ -13,7 +13,7 @@ router.get('/player/:id', asyncMiddleware(async (req, res) => {
     });
 }));
 
-router.get('players', asyncMiddleware(async (req, res) => {
+router.get('/players', asyncMiddleware(async (req, res) => {
     db.find({}, function (err, docs) {
         res.send(docs);
     });
@@ -43,5 +43,14 @@ router.get('/foobar', asyncMiddleware(async (req, res) => {
     res.send(JSON.stringify('{"foo":"bar"}'));
 }));
 
+function initDB(){
+    db.insert(new Player('foo', 'bar', 'foo', 'baz'))
+}
+
+function clearDB(){
+    db = new Datastore();
+}
 
 module.exports = router;
+module.exports.initDB = initDB;
+module.exports.clearDB = clearDB;

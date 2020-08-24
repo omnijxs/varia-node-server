@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
-const should = require('should');
+const Player = require('../data/player.js');
+const db = require('../routes.js');
 
 const app = require('../app.js');
 const chai = require('chai');
@@ -7,10 +8,21 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 describe('GET api/foobar', () => {
-    it('should return foobar', done => {
+
+    beforeEach(done => {
+      db.initDB()
+      done();
+    });
+
+    afterEach(done => {
+      db.clearDB()
+      done();
+    });
+
+    it('GET: Happy path', done => {
       chai
         .request(app)
-        .get('/api/foobar')
+        .get('/api/players')
         .end((err, res) => {
             const expected = '{"foo":"bar"}'; 
             expect(res.status).to.equal(200);
@@ -18,13 +30,11 @@ describe('GET api/foobar', () => {
             done();
         });
     });
-  });
 
-  describe('GET api/foobaz', () => {
-    it('should return foobaz', done => {
+     it('should return foobaz', done => {
       chai
         .request(app)
-        .get('/api/foobaz')
+        .get('/api/players')
         .end((err, res) => {
             const expected = '{"foo":"baz"}'; 
             expect(res.status).to.equal(200);
