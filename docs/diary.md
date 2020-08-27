@@ -7,7 +7,7 @@
     * Vaatimukset:
         * Tehkää projektille oma GitHub-repo. Ei väliä kenen GitHub-tililtä repo löytyy.
         * Käytetään NodeJS-frameworkia.
-        * Opettaja pystyy 'git pull' komennolla saamaan koodit koneelleen.
-            * Eli antakaa omnijxs nimiselle käyttäjälle oikeudet luomaanne repoon.
+        * Opettaja pystyy 'git clone' komennolla saamaan koodit koneelleen.
+            * Eli antakaa 'omnijxs' nimiselle käyttäjälle oikeudet luomaanne repoon.
         * Softan pitää käynnistyä käskyllä 'node app.js'
-        * Kun avaan selaimen osoitteessa http://localhost:3000 selaimessa näkyy projektin tekijöiden nimet.
+        * Kun avaan selaimen osoitteessa http://localhost:3000 selaimessa näkyy projektin tekijöiden nimet. Ei ole väliä miltä sivu muuten näyttää. 
