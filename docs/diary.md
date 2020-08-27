@@ -1,11 +1,13 @@
-<h1>DIARY</h1>
+<h1>1.9.2020</h1>
 
 * Ryhmätyö. 
-    * Jakautukaa ryhmiin joissa on 3 henkilöä. 
+    * Jakautukaa ryhmiin joissa on 2-3 henkilöä. 
     * Tehtävänne on toteuttaa NodeJS-palvelin joka palauttaa kaikkien ryhmässä olevien nimet.
-    * Tehkää projektille oma GitHub-repo. 
-
+  
     * Vaatimukset:
+        * Tehkää projektille oma GitHub-repo. Ei väliä kenen GitHub-tililtä repo löytyy.
+        * Käytetään NodeJS-frameworkia.
         * Opettaja pystyy 'git pull' komennolla saamaan koodit koneelleen.
-        * Palvelin käynnistyy käskyllä 'node app.js'
-        * Kun avaan selaimen osoitteessa http://localhost:3000 selaimessa näkyy projektin tekijöiden nimet
+            * Eli antakaa omnijxs nimiselle käyttäjälle oikeudet luomaanne repoon.
+        * Softan pitää käynnistyä käskyllä 'node app.js'
+        * Kun avaan selaimen osoitteessa http://localhost:3000 selaimessa näkyy projektin tekijöiden nimet.

@@ -8,9 +8,7 @@ chai.use(chaiHttp);
 
 let data = [];
 
-// https://github.com/louischatriot/nedb/
-
-describe('PLAYER: CRUD operations', () => {
+describe('PLAYER: QUERY operations', () => {
 
     beforeEach(done => {
       data = db.initDB()
@@ -22,10 +20,10 @@ describe('PLAYER: CRUD operations', () => {
       done();
     });
 
-    it('Get player by id: GET /player/:id', done => {
+    it('Query player by team name:', done => {
       chai
         .request(app)
-        .get('/api/player/' + data[0].uuid)
+        .get('/api/players?teamName=RED')
         .end((err, res) => {
             
             expect(res.status).to.equal(200);
@@ -39,10 +37,10 @@ describe('PLAYER: CRUD operations', () => {
         });
     });
 
-    it('Get all players: GET /players', done => {
+    it('Query player by team name and score higher than', done => {
       chai
         .request(app)
-        .get('/api/players')
+        .get('/api/players?teamName=RED&scoreHigherThan=1500')
         .end((err, res) => {
             
             expect(res.status).to.equal(200);
@@ -55,11 +53,10 @@ describe('PLAYER: CRUD operations', () => {
         });
     });
 
-  it('Create player: POST /player', done => {
+  it('Query players who have been playing since 1.2.2020', done => {
       chai
         .request(app)
-        .post('/api/player/')
-        .send({ name: 'John Doe', score: 60400 })
+        .get('/api/players?createdOn=01-02-2020')
         .end((err, res) => {
             
             expect(res.status).to.equal(200);
@@ -73,25 +70,21 @@ describe('PLAYER: CRUD operations', () => {
         });
     });
 
-    it('Update player: PUT /player', done => {
+    it('Query players by team name, started before 1.11.2019 and score less than 1000', done => {
       chai
         .request(app)
-        .put('/api/player/')
-        .send({ uuid: data[0].uuid, name: 'John Moe', score: 70800, teamName: 'RED' })
+        .get('/api/players?teamName=RED&createdOn=01-11-2019&scoreLessThan=1000')
         .end((err, res) => {
             
             expect(res.status).to.equal(200);
-            
+
+            const expected = data[0]; 
             const result = res.body[0];
 
-            expect(result.uuid).to.equal(data[0].uuid);
-            expect(result.name).to.equal('John Moe');
-            expect(result.score).to.equal(70800);
-            expect(result.teamName).to.equal('RED');
+            expect(playersEqual(expected, result)).to.be.true;
 
             done();
         });
-
     });
 
     it('Delete player: DELETE /player', done => {
@@ -118,27 +111,3 @@ function playersEqual(p1, p2){
           p1.uuid === p2.uuid
 
 }
-
-  // Test Cases
-  /**
-   * 
-
-   CRUD
-  1. Get Player by id
-  2. Create a new Player
-  3. Update a player
-  4. Delete a player
-
-    ADVANCED CRUD
-  5. Mass update
-  6. Limited and full update
-
-    QUERY
-  1. Query all players by team name
-  2. Query all players with score higher than user input
-  3. Query all players by team name and score less than user input
-  4. Query all players who were created after date
-
-    DASHBOARD
-
-   */
