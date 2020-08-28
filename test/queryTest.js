@@ -90,27 +90,4 @@ describe('PLAYER: QUERY operations', () => {
         });
     });
 
-    it('Delete player: DELETE /player', done => {
-      chai
-        .request(app)
-        .delete('/api/player/')
-        .send({ uuid: data[0].uuid })
-        .end((err, res) => {
-            
-            expect(res.status).to.equal(200);
-            expect(res.body.numberOfRemoved).to.equal(1);
-
-            done();
-        });
-
-    });
-
   });
-
-function playersEqual(p1, p2){
-  return p1.name === p2.name &&
-          p1.score === p2.score &&
-          p1.teamName === p2.teamName &&
-          p1.uuid === p2.uuid
-
-}
