@@ -11,7 +11,7 @@ let data = [];
 describe('PLAYER: QUERY operations', () => {
 
     beforeEach(done => {
-      data = db.initDB()
+      data = db.mockDB()
       done();
     });
 
@@ -27,6 +27,9 @@ describe('PLAYER: QUERY operations', () => {
         .end((err, res) => {
             
             expect(res.status).to.equal(200);
+
+            // 2
+            // 
 
             const expected = data[0]; 
             const result = res.body[0];
