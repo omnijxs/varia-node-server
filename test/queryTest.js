@@ -159,7 +159,7 @@ describe('PLAYER: QUERY operations', () => {
       });
   });
 
-  it('Query players by team name, started before and score greater than [case 1]', done => {
+  it('Query players by team name, started before and score greater than [case 2]', done => {
     chai
       .request(app)
       .get('/api/players?teamName=BLUE&startedBefore=01-05-2020&scoreHigherThan=12000')
@@ -176,7 +176,7 @@ describe('PLAYER: QUERY operations', () => {
       });
   });
 
-  it('Query players by team name, started before and score greater than [case 2]', done => {
+  it('Query players by team name, started before and score greater than [case 3]', done => {
     chai
       .request(app)
       .get('/api/players?teamName=RED&startedBefore=01-01-2020&scoreHigherThan=12000')
@@ -193,7 +193,7 @@ describe('PLAYER: QUERY operations', () => {
       });
   });
 
-  it('Query players by team name, started before and score greater than [case 3]', done => {
+  it('Query players by team name, started before and score greater than [case 4]', done => {
     chai
       .request(app)
       .get('/api/players?teamName=PURPLE&startedBefore=01-02-2020&scoreHigherThan=8000')

@@ -25,14 +25,14 @@ describe('PLAYER: Complex operations', () => {
    *        {
    *          "name": "a", 
    *          "totalScore": 11000
-   *        } ...
+   *        }, ...
    * 
    *      ]
    * 
    * Protip 1: You have to implement the calculation of total score
-   * Protip 2: Create two new classes into data-folder which represent the return value.
-   
-   * 3. An endpoint which returns players grouped by team and team total score and sorted by score descending AND team member information
+   * Protip 2: Create two new classes into data-folder which represent the return value
+   *
+   * 4. An endpoint which returns players grouped by team and team total score and sorted by score descending AND team member information
    *    The response data structure should be like:
    * 
    *    "teams" : [
@@ -46,7 +46,7 @@ describe('PLAYER: Complex operations', () => {
    *              "createdAtYear": "2020"
    *            }
    *          ]
-   *        } ...
+   *        }, ...
    * 
    *      ]
    * 

@@ -33,7 +33,7 @@ describe('PLAYER: CRUD operations', () => {
             const result = res.body;
 
             expect(result.foo).to.equal(expected);
-
+w
             done();
         });
     });
@@ -64,6 +64,23 @@ describe('PLAYER: CRUD operations', () => {
             expect(res.status).to.equal(200);
 
             const expected = data[3]; 
+            const result = res.body;
+
+            expect(helper.playersEqual(expected, result)).to.be.true;
+
+            done();
+        });
+    });
+
+    it('Get player by id: GET /api/player/:id [no player found]', done => {
+      chai
+        .request(app)
+        .get('/api/player/' + 'not_found')
+        .end((err, res) => {
+            
+            expect(res.status).to.equal(404);
+
+            const expected = {}; 
             const result = res.body;
 
             expect(helper.playersEqual(expected, result)).to.be.true;
@@ -159,6 +176,27 @@ describe('PLAYER: CRUD operations', () => {
           expect(result.teamName).to.equal('BLUE');
           expect(result.createdAt).to.equal(data[1].createdAt);
 
+          expect(db.size).to.equal(9);
+
+          done();
+      });
+
+  });
+
+  it('Update player: PUT /api/player [no player found]', done => {
+    chai
+      .request(app)
+      .put('/api/player')
+      .send({ uuid: data[1].uuid, name: 'George Doe', score: 0, teamName: 'BLUE' })
+      .end((err, res) => {
+          
+          expect(res.status).to.equal(404);
+          
+          const result = res.body;
+          const expected = {};
+
+          expect(result).to.equal(expected);
+          
           expect(db.size).to.equal(9);
 
           done();
