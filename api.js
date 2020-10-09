@@ -14,10 +14,6 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
 }));
 
 /**
- * Note that there are certain properties which cannot be set
- */
-
-/**
  * Helper functions
  * Extract later to another class
  */
