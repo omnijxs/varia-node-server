@@ -10,7 +10,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/api', require('./routes'));;
+app.use('/api', require('./api'));;
 
 app.listen(8080, function () {
   console.log('App listening on port 8080!')

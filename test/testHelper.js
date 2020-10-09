@@ -12,6 +12,10 @@ class TestHelper {
         return players.find(p => (p.uuid == player.uuid));
     }
 
+    arraysEqual(a, b){
+        return JSON.stringify(a) === JSON.stringify(b);
+    }
+
 };
 
 module.exports = TestHelper;

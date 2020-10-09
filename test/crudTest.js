@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const db = require('../routes.js');
+const db = require('../api.js');
 
 const app = require('../app.js');
 const chai = require('chai');
@@ -89,7 +89,7 @@ describe('PLAYER: CRUD operations', () => {
               expect(result.teamName).to.equal('RED');
               expect(result.createdAt).to.not.be.null;
 
-              expect(db.size).to.equal(7);
+              expect(db.size).to.equal(10);
 
               done();
           });
@@ -112,7 +112,7 @@ describe('PLAYER: CRUD operations', () => {
             expect(result.teamName).to.equal('BLUE');
             expect(result.createdAt).to.not.be.null;
 
-            expect(db.size).to.equal(7);
+            expect(db.size).to.equal(10);
 
             done();
         });
@@ -135,7 +135,7 @@ describe('PLAYER: CRUD operations', () => {
           expect(result.teamName).to.equal('GREEN');
           expect(result.createdAt).to.equal(data[0].createdAt);
 
-          expect(db.size).to.equal(6);
+          expect(db.size).to.equal(9);
 
           done();
       });
@@ -159,7 +159,7 @@ describe('PLAYER: CRUD operations', () => {
           expect(result.teamName).to.equal('BLUE');
           expect(result.createdAt).to.equal(data[1].createdAt);
 
-          expect(db.size).to.equal(6);
+          expect(db.size).to.equal(9);
 
           done();
       });
@@ -176,7 +176,7 @@ describe('PLAYER: CRUD operations', () => {
         expect(res.status).to.equal(200);
           
         expect(!helper.playerFound(data[0], db.getData()))
-        expect(db.size).to.equal(5);
+        expect(db.size).to.equal(8);
 
         done();
       });
@@ -193,7 +193,7 @@ describe('PLAYER: CRUD operations', () => {
           expect(res.status).to.equal(200);
           
           expect(!helper.playerFound(data[3], db.getData()))
-          expect(db.size).to.equal(5);
+          expect(db.size).to.equal(8);
 
           done();
       });
