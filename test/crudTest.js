@@ -47,7 +47,7 @@ describe('PLAYER: CRUD operations', () => {
             expect(res.status).to.equal(200);
 
             const expected = data[0]; 
-            const result = res.body[0];
+            const result = res.body;
 
             expect(helper.playersEqual(expected, result)).to.be.true;
 
@@ -64,7 +64,7 @@ describe('PLAYER: CRUD operations', () => {
             expect(res.status).to.equal(200);
 
             const expected = data[3]; 
-            const result = res.body[0];
+            const result = res.body;
 
             expect(helper.playersEqual(expected, result)).to.be.true;
 
@@ -127,7 +127,7 @@ describe('PLAYER: CRUD operations', () => {
           
           expect(res.status).to.equal(200);
           
-          const result = res.body[0];
+          const result = res.body;
 
           expect(result.uuid).to.equal(data[0].uuid);
           expect(result.name).to.equal('John Doe');
@@ -151,7 +151,7 @@ describe('PLAYER: CRUD operations', () => {
           
           expect(res.status).to.equal(200);
           
-          const result = res.body[0];
+          const result = res.body;
 
           expect(result.uuid).to.equal(data[1].uuid);
           expect(result.name).to.equal('George Doe');

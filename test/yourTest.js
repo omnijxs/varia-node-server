@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const db = require('../routes.js');
+const db = require('../api.js');
 
 const app = require('../app.js');
 const chai = require('chai');

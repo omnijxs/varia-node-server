@@ -1,6 +1,6 @@
 class TestHelper {
     
-    playersEqual(p1, p2){
+    static playersEqual(p1, p2){
         return p1.name === p2.name &&
                 p1.score === p2.score &&
                 p1.teamName === p2.teamName &&
@@ -8,11 +8,11 @@ class TestHelper {
 
     }
     
-    playerFound(player, players) {
+    static playerFound(player, players) {
         return players.find(p => (p.uuid == player.uuid));
     }
 
-    arraysEqual(a, b){
+    static arraysEqual(a, b){
         return JSON.stringify(a) === JSON.stringify(b);
     }
 
