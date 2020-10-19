@@ -4,6 +4,12 @@
 
 <h1>Diary</h1>
 
+<h2>20.10.2020</h2>
+
+* Tehtävä 2
+    * Repossa testejä (crudTest.js ja queryTest.js) jotka teidän pitää implementoida. Muutokset pelkästään api.js tiedostoon.
+    * yourTest.js löytyy kuvaukset testeistä jotka teidän pitää toteuttaa. Testit JA implementaatio.
+
 <h2>19.10.2020</h2>
 
 * Pikainen JavaScript-kertaus (https://www.youtube.com/watch?v=c-I5S_zTwAc)
