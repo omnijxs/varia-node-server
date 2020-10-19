@@ -1,4 +1,4 @@
-<h1>1.9.2020</h1>
+<h1>19.10.2020</h1>
 
 * Tehtävä 1 
     * Tehtävänne on toteuttaa NodeJS-softa joka palauttaa teidän oman nimenne. 
