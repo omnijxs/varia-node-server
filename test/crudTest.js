@@ -33,7 +33,7 @@ describe('PLAYER: CRUD operations', () => {
             const result = res.body;
 
             expect(result.foo).to.equal(expected);
-w
+
             done();
         });
     });
