@@ -1,6 +1,7 @@
-<h1>19.10.2020</h1>
+<h1>Diary</h1>
 
-* Pikainen JavaScript-kertaus
+<h2>19.10.2020</h2>
+* Pikainen JavaScript-kertaus (https://www.youtube.com/watch?v=c-I5S_zTwAc)
 * Pikainen teoria osio websovelluksien arkkitehtuuriin
 * Pikainen teoria osio REST-rajapinnoista ja node.js'stä.
 
