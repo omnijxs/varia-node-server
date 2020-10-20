@@ -14,8 +14,7 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
 }));
 
 /**
- * Helper functions
- * Extract later to another class
+ * Mock DB helper functions
  */
 
 function mockDB(){
