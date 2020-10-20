@@ -13,8 +13,7 @@
 <h2>19.10.2020</h2>
 
 * Pikainen JavaScript-kertaus (https://www.youtube.com/watch?v=c-I5S_zTwAc)
-* Pikainen teoria osio websovelluksien arkkitehtuuriin
-* Pikainen teoria osio REST-rajapinnoista ja node.js'stä.
+* Pikainen teoria osio websovelluksien arkkitehtuuriin ja REST-rajapinnoista ja node.js'stä. https://docs.google.com/presentation/d/173GNqfLWdvG2luu1BBDDn98U9joFQXScs0jyHubArsE/edit?usp=sharing
 
 * Tehtävä 1
     * Tehtävänne on toteuttaa node.js-softa joka palauttaa kaikkien ryhmässä olevien nimet.
