@@ -148,7 +148,7 @@ describe('PLAYER: CRUD operations', () => {
 
           expect(result.uuid).to.equal(data[0].uuid);
           expect(result.name).to.equal('John Doe');
-          expect(result.score).to.equal(70100);
+          expect(result.score).to.equal(68700);
           expect(result.teamName).to.equal('GREEN');
           expect(result.createdAt).to.equal(data[0].createdAt);
 
