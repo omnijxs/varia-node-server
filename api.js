@@ -25,10 +25,17 @@ router.post('/player/', asyncMiddleware(async (request, res) => {
     const pinfo = request.body;
   const playerid = ("uuid_" + newid)
   const newPlayer = new Player(playerid, pinfo.name, pinfo.score, pinfo.teamName, new Date(Date.now()))
-  console.log(newPlayer)
   db.push(newPlayer)
-  console.log(db.length)
   return res.status(200).send(newPlayer)
+}));
+router.put('/player/', asyncMiddleware(async (request, res) => {
+    const boddy = request.body;
+    const currentPlayer = db.find(player => player.uuid === boddy.uuid)
+    currentPlayer.name = boddy.name
+    currentPlayer.score = boddy.score
+    currentPlayer.teamName = boddy.teamName
+
+    return res.status(200).send(currentPlayer)
 }));
 
 
