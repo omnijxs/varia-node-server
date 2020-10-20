@@ -12,6 +12,28 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
     const result = {"foo":"bar"}
     return res.status(200).send(result);
 }));
+router.get('/player/:id', asyncMiddleware(async (request, res) => {
+    const id = request.params.id;
+    const result = db.find(element => element.uuid === id)
+    if(db.includes(result)) {
+        return res.status(200).send(result);
+    }else{
+    return res.status(404).send(result);}
+}));
+router.post('/player/', asyncMiddleware(async (request, res) => {
+    newId = db.length + 1;
+    const playerinfo = request.body;
+    const playerId = ("uuid_" + newId)
+    const newPlayer = new Player (playerId, playerinfo.name, playerinfo.score, playerinfo.teamName, new Date(Date.now()))
+    console.log(newPlayer)
+    db.push(newPlayer);
+    console.log(db.length)
+    return res.status(200).send(newPlayer);
+}));
+router.put('/player/'), asyncMiddleware(async (request, res) => {
+    
+}
+
 
 /**
  * Mock DB helper functions
@@ -38,6 +60,8 @@ function clearDB(){
 function getDB(){
     return db;
 }
+
+
 
 module.exports = router;
 module.exports.mockDB = mockDB;
