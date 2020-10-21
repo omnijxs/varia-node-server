@@ -17,10 +17,16 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
     const id = req.params.id;
 
+
     const result = db.find(function (player) { 
         return player.uuid === id; 
     }); 
-        return res.status(200).send(result) 
+    if (result) {
+        return res.status(200).send(result);
+    } else {
+        return res.status(404).send(result);
+    }
+         
 
 
     
