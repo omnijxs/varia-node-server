@@ -4,6 +4,8 @@
 
     git clone https://github.com/omnijxs/varia-node-server.git 
 
+    cd varia-node-server
+    
     git checkout -b student/<GITHUB-TUNNARI>
 
     git commit -a -m "Initial commit"
