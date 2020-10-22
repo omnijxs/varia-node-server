@@ -2,13 +2,32 @@ const express = require('express');
 const router = express.Router();
 const { asyncMiddleware } = require('./middleware');
 const Player = require('./data/player.js');
+const db = require('./dbconfig.js');
 
-let db = [];
+//let db = [];
 
-/**
- * An example how an endpoint is implemented
- */
-router.get('/foo', asyncMiddleware(async (req, res) => {
+router.get('/init', asyncMiddleware(async (req, res) => {
+    mongoClient.connect(url, function(err, db) {
+        
+        if (err) throw err;
+        console.log("Database created!");
+        db.close();
+        return res.status(200).send(url);
+      });
+    
+}));
+
+router.get('/add', asyncMiddleware(async (req, res) => {
+    const db = mongoClient.db('foobar');
+    db.createCollection("customers", function(err, res) {
+      if (err) throw err;
+      console.log("Collection created!");
+      db.close();
+    });
+    return res.status(200).send(db);
+}));
+
+router.get('/get', asyncMiddleware(async (req, res) => {
     const result = {"foo":"bar"}
     return res.status(200).send(result);
 }));
