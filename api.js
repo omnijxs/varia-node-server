@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { asyncMiddleware } = require('./middleware');
 const Player = require('./data/player.js');
-const db = require('./dbconfig.js');
+// const db = require('./dbconfig.js');
 
 //let db = [];
 

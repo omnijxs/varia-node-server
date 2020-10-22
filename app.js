@@ -14,6 +14,7 @@ app.use('/api', require('./api'));;
 
 app.listen(8080, function () {
   console.log('App listening on port 8080!')
+  // db.init();
 })
 
 module.exports = app;
