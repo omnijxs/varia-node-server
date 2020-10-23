@@ -1,5 +1,4 @@
 const expect = require('chai').expect;
-const db = require('../api.js');
 
 const app = require('../app.js');
 const chai = require('chai');
@@ -9,10 +8,13 @@ chai.use(chaiHttp);
 
 let data = [];
 
+const db = require('../db/test.js');
+
 describe('PLAYER: CRUD operations', () => {
 
     beforeEach(done => {
-      data = db.mockDB()
+      db.mockDB();
+      data = db.getDB();
       done();
     });
 
