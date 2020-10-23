@@ -6,21 +6,37 @@ const helper = require('./testHelper.js');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-let data = [];
+let dbconfig = require('../db/dev.js');
+let data = null;
+let db = null;
 
-const db = require('../db/test.js');
+/*
+(async () => {
+    data = await db.loadDB();
+})(); */
 
 describe('PLAYER: CRUD operations', () => {
 
     beforeEach(done => {
-      db.mockDB();
-      data = db.getDB();
-      done();
+        (async () => {
+          db = await dbconfig.loadDB();
+          await dbconfig.populateDB();
+
+          data = dbconfig.getPlayerData();
+          done();
+
+      })();
+      // done();
     });
 
     afterEach(done => {
-      data = db.clearDB()
-      done();
+      (async () => {
+        db = await dbconfig.loadDB();
+        await dbconfig.emptyDB();
+        data = [];
+        done();
+      })();
+      // done();
     });
 
     it('Example: GET /api/foo', done => {
@@ -49,7 +65,7 @@ describe('PLAYER: CRUD operations', () => {
             expect(res.status).to.equal(200);
 
             const expected = data[0]; 
-            const result = res.body;
+            const result = res.body.result;
 
             expect(helper.playersEqual(expected, result)).to.be.true;
 

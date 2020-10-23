@@ -82,7 +82,7 @@ async function mockDB(){
       
     });
 
-      console.log(`FOOBAR: ${dbName}.`);     
+    console.log(`FOOBAR: ${dbName}.`);     
   });
 
 }
