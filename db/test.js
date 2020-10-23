@@ -14,11 +14,11 @@ const Player = require('../data/player.js');
 
 const connectConfig = { useNewUrlParser: true, useUnifiedTopology: true }
 
-mongo.connect(url, connectConfig, async (err, client) => {
+/* mongo.connect(url, connectConfig, async (err, client) => {
     if (err) throw err;
     await initCollections(client); 
     console.log(`Connected to database: ${dbName}.`);     
-});
+});*/ 
 
 async function initCollections(client) {
   const existingCollections = await client.db().listCollections().toArray();

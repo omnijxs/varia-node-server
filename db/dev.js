@@ -2,12 +2,33 @@ const mongo = require('mongodb').MongoClient
 const dbName = 'apiDev'
 const url = `mongodb://127.0.0.1:27017/${dbName}`
 
+let data  = null;
 const connectConfig = { useNewUrlParser: true, useUnifiedTopology: true }
+
+// TODO make one db config file. 
+// https://stackoverflow.com/questions/16144455/mocha-tests-with-extra-options-or-parameters
+
+
+console.log(process.argv);
+
+const loadDB = async () => {
+  if (data) {
+      return data;
+  }
+  try {
+      const client = await mongo.connect('mongodb://localhost:27017/apiDev', connectConfig);
+      data = client.db('apiDev');
+  } catch (err) {
+      throw err;
+  }
+  return data;
+};
 
 function initDB() {
   mongo.connect(url, connectConfig, (err, client) => {
     if (err) throw err;
-    initCollections(client);    
+    initCollections(client);
+    console.log(`Connected to database: ${dbName}.`);     
   });
 }
 
@@ -50,3 +71,4 @@ function getDBName() {
 module.exports.getUrl = getUrl;
 module.exports.getDBName = getDBName;
 module.exports.initDB = initDB;
+module.exports.loadDB = loadDB;
