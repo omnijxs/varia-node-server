@@ -1,5 +1,5 @@
 const mongo = require('mongodb').MongoClient
-const dbName = 'api'
+const dbName = 'apiTest'
 const url = `mongodb://127.0.0.1:27017/${dbName}`
 
 const connectConfig = { useNewUrlParser: true, useUnifiedTopology: true }
@@ -10,7 +10,6 @@ mongo.connect(url, connectConfig, (err, client) => {
 });
 
 async function initCollections(client) {
-  
   const existingCollections = await client.db().listCollections().toArray();
   const collectionsToInit = collectionNamesToInit();
   const db = client.db(dbName);
@@ -20,17 +19,14 @@ async function initCollections(client) {
 function addCollectionsToDatabaseIfDoesNotExist(db, 
                                                collectionsToInit, 
                                                existingCollections) {
-
     collectionsToInit.map(col => {
-    
-    if(!collectionExists(col, existingCollections)) {
 
-        db.createCollection(col, function(err, res) {
-          if (err) throw err;
-          console.log(`Collection created: ${col}`);  
-          // client.close();
-      });
-
+      if(!collectionExists(col, existingCollections)) {
+        
+          db.createCollection(col, function(err, res) {
+            if (err) throw err;
+            console.log(`Collection created: ${col}.`);  
+        });
     }
     
   });

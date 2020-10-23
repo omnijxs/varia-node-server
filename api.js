@@ -2,34 +2,20 @@ const express = require('express');
 const router = express.Router();
 const { asyncMiddleware } = require('./middleware');
 const Player = require('./data/player.js');
-// const db = require('./dbconfig.js');
+const mongo = require('mongodb').MongoClient
+const db = require('./db/dev.js');
 
-//let db = [];
+let data = null;
 
-router.get('/init', asyncMiddleware(async (req, res) => {
-    mongoClient.connect(url, function(err, db) {
-        
-        if (err) throw err;
-        console.log("Database created!");
-        db.close();
-        return res.status(200).send(url);
-      });
-    
-}));
+// Connect to database 
+mongo.connect(db.getUrl(), async function(err, client) {
+    if (err) throw err;
+    data = client.db();
+    console.log(`Connected to database: ${db.getDBName()}.`);  
+  });   
 
-router.get('/add', asyncMiddleware(async (req, res) => {
-    const db = mongoClient.db('foobar');
-    db.createCollection("customers", function(err, res) {
-      if (err) throw err;
-      console.log("Collection created!");
-      db.close();
-    });
-    return res.status(200).send(db);
-}));
-
-router.get('/get', asyncMiddleware(async (req, res) => {
-    const result = {"foo":"bar"}
-    return res.status(200).send(result);
+router.get('/player/:id', asyncMiddleware(async (req, res) => {
+    // TODO  
 }));
 
 /**
