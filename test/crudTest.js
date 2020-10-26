@@ -211,7 +211,7 @@ describe('PLAYER: CRUD operations', () => {
           
         expect(res.status).to.equal(200);
           
-        expect(!helper.playerFound(data[0], db.getData()))
+        expect(!helper.playerFound(data[0], data))
         expect(data.length).to.equal(8);
 
         done();
