@@ -21,6 +21,7 @@ router.get('/player/:id', asyncMiddleware(async (req, res) => {
         return res.status(200).send(answer);
     }
     else{
+        
         return res.status(404).send({});
     }
    
@@ -44,6 +45,7 @@ router.put('/player', asyncMiddleware(async (req, res) => {
 
     const pl = req.body
     const uP = db.find(player => player.uuid === pl.uuid)
+    const errormessage = {"message":"error"}
    
     if (uP){
         uP.name = pl.name
@@ -53,7 +55,20 @@ router.put('/player', asyncMiddleware(async (req, res) => {
     }
     else
     { 
-        return res.status(404).send({})
+        return res.status(404).send(errormessage)
+    }
+}));
+
+router.delete('/player', asyncMiddleware(async (req, res) => {
+
+    const pl = req.body
+    const uP = db.find(player => player.uuid === pl.uuid)
+    if (uP){
+
+        db.splice(db[pl.uuid], 1)
+        return res.status(200).send({})
+    }else{
+        return res.status(404).send(errormessage)
     }
 }));
 /**
