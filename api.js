@@ -40,11 +40,16 @@ router.put('/player', asyncMiddleware(async (req, res) => {
  
     const pl = req.body
     const uP = db.find(player => player.uuid === pl.uuid)
-    uP.name = pl.name
-    uP.score = pl.score
-    uP.teamName = pl.teamName
- 
-    return res.status(200).send(uP)
+    
+    if(uP){
+        uP.name = pl.name
+        uP.score = pl.score
+        uP.teamName = pl.teamName
+        return res.status(200).send(uP)
+    }
+    else{
+        return res.status(404).send({})
+    }
 }));
 /**
  * Mock DB helper functions
