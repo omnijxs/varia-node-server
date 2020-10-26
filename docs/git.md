@@ -17,3 +17,17 @@
     git commit -a -m "Kuvaava viesti tähän"
 
     git push
+
+<h2>Hae opettajan muutoksia</h2>
+
+    git commit -a -m "Kuvaava viesti tähän"
+
+    git push
+
+    git checkout develop
+
+    git pull
+
+    git checkout student/<GITHUB-TUNNARI>
+
+    git merge develop
