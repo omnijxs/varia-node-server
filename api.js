@@ -13,6 +13,12 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
     return res.status(200).send(result);
 }));
 
+router.get('/player/:id', asyncMiddleware(async (req, res) => {
+    const id = req.params.id
+    const answer = db.find(player => player.uuid === id)
+    return res.status(200).send(answer);
+}));
+
 /**
  * Mock DB helper functions
  */
