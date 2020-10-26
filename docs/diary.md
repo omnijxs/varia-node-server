@@ -1,8 +1,12 @@
 
-<h1>TUNNEILLA MASKI PÄÄSSÄ</h1>
-<h1>TUNNEILLA TURVAVÄLIT</h1>
+<h1>TUNNEILLA MASKI PÄÄSSÄ && TURVAVÄLIT</h1>
 
 <h1>Diary</h1>
+
+<h2>26.10.2020</h2>
+
+* Jatketaan tehtävää 2. Eli crudTest.js, queryTest.js ja yourTest.js.
+* Aletaan tutustumaan pikkuhiljaa coding conventionseihin, eli siihen miltä sen koodin pitäisi näytää.
 
 <h2>20.10.2020</h2>
 
