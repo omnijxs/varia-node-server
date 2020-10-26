@@ -68,6 +68,27 @@ router.put('/player', asyncMiddleware(async (req, res) => {
     
 }));
 
+// Delete player function
+router.delete('/player', asyncMiddleware(async (req, res) => {
+    const playerData = req.body;
+    
+
+    const player = db.find(function (player) { 
+        return player.uuid === playerData.uuid; 
+    });
+    
+    player.name = playerData.name;
+    player.score = playerData.score;
+    player.teamName = playerData.teamName;
+    
+    
+     
+    return res.status(200).send(player);
+    
+    
+    
+}));
+
 /**
  * Mock DB helper functions
  */
