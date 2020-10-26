@@ -36,7 +36,19 @@ router.post('/player', asyncMiddleware(async (req, res) => {
      
 
     const newPlayer = new Player(newId, payload.name, payload.score, payload.teamName,createdAt)
+    db.push(newPlayer)
     return res.status(200).send(newPlayer)
+}));
+
+router.put('/player', asyncMiddlewere(async (req, res) => {
+
+    const pl =  req.body
+    const uP = db.find(player => player.uuid === pl.uuid)
+    uP.name = pl.name
+    uP.score = pl.score
+    uP.teamName = pl.teamName
+
+    return res.status(200).send(uP)
 }));
 /**
  * Mock DB helper functions

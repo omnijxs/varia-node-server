@@ -106,7 +106,7 @@ describe('PLAYER: CRUD operations', () => {
               expect(result.teamName).to.equal('RED');
               expect(result.createdAt).to.not.be.null;
 
-              expect(db.size).to.equal(10);
+              expect(data.length).to.equal(10);
 
               done();
           });
@@ -129,7 +129,7 @@ describe('PLAYER: CRUD operations', () => {
             expect(result.teamName).to.equal('BLUE');
             expect(result.createdAt).to.not.be.null;
 
-            expect(db.size).to.equal(10);
+            expect(data.length).to.equal(10);
 
             done();
         });
@@ -148,11 +148,9 @@ describe('PLAYER: CRUD operations', () => {
 
           expect(result.uuid).to.equal(data[0].uuid);
           expect(result.name).to.equal('John Doe');
-          expect(result.score).to.equal(70100);
+          expect(result.score).to.equal(68700);
           expect(result.teamName).to.equal('GREEN');
-          expect(result.createdAt).to.equal(data[0].createdAt);
-
-          expect(db.size).to.equal(9);
+          expect(data.length).to.equal(9);
 
           done();
       });
@@ -176,7 +174,7 @@ describe('PLAYER: CRUD operations', () => {
           expect(result.teamName).to.equal('BLUE');
           expect(result.createdAt).to.equal(data[1].createdAt);
 
-          expect(db.size).to.equal(9);
+          expect(data.length).to.equal(9);
 
           done();
       });
@@ -197,7 +195,7 @@ describe('PLAYER: CRUD operations', () => {
 
           expect(result).to.equal(expected);
           
-          expect(db.size).to.equal(9);
+          expect(data.length).to.equal(9);
 
           done();
       });
@@ -214,7 +212,7 @@ describe('PLAYER: CRUD operations', () => {
         expect(res.status).to.equal(200);
           
         expect(!helper.playerFound(data[0], db.getData()))
-        expect(db.size).to.equal(8);
+        expect(data.length).to.equal(8);
 
         done();
       });
@@ -230,8 +228,8 @@ describe('PLAYER: CRUD operations', () => {
           
           expect(res.status).to.equal(200);
           
-          expect(!helper.playerFound(data[3], db.getData()))
-          expect(db.size).to.equal(8);
+          expect(!helper.playerFound(data[3], data))
+          expect(data.length).to.equal(8);
 
           done();
       });
