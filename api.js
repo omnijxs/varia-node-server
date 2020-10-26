@@ -48,9 +48,7 @@ router.post('/player', asyncMiddleware(async (req, res) => {
 // Update player function
 router.put('/player', asyncMiddleware(async (req, res) => {
     const playerData = req.body;
-    console.log(playerData);
-    const bal = 'uuid';
-    const bal2 = 'createdAt';
+    
 
     const player = db.find(function (player) { 
         return player.uuid === playerData.uuid; 
