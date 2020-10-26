@@ -59,7 +59,11 @@ router.put('/player', asyncMiddleware(async (req, res) => {
     player.teamName = playerData.teamName;
     
     
-    return res.status(200).send(player);
+    if (player) {
+        return res.status(200).send(player);
+    } else {
+        return res.status(404).send(player);
+    }
     
     
 }));
