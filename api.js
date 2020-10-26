@@ -14,6 +14,7 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
     
 }));
 
+// Get player by id function
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
     const id = req.params.id;
 
@@ -27,8 +28,36 @@ router.get('/player/:id', asyncMiddleware(async (req, res) => {
         return res.status(404).send(result);
     }
          
+    
+}));
+
+// Create player function
+router.post('/player', asyncMiddleware(async (req, res) => {
+    const playerData = req.body;
+    const bal = 'uuid';
+    const bal2 = 'createdAt'
+    const player = new Player(bal, playerData.name, playerData.score, playerData.teamName, bal2);
 
 
+    db.push(player)  
+    return res.status(200).send(player);
+    
+    
+}));
+
+// Update player function
+router.put('/player', asyncMiddleware(async (req, res) => {
+    const playerData = req.body;
+    const bal = 'uuid_1';
+    const bal2 = 'createdAt';
+    const bal3 = 'uuid_2';
+    const player = [bal, playerData.name, playerData.score, playerData.teamName, bal2, bal3];
+    
+
+
+    db.push(player)  
+    return res.status(200).send(player);
+    
     
 }));
 
