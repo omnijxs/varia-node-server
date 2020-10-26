@@ -14,11 +14,30 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
 }));
 
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
+
     const id = req.params.id
     const answer = db.find(player => player.uuid === id)
-    return res.status(200).send(answer);
+    if(answer){
+        return res.status(200).send(answer);
+    }
+    else{
+        return res.status(404).send({});
+    }
+   
 }));
 
+router.post('/player', asyncMiddleware(async (req, res) => {
+
+    const payload =  req.body
+    const newId = "uuid_" + db.length + 1
+
+    const createdAt = new Date()
+
+     
+
+    const newPlayer = new Player(newId, payload.name, payload.score, payload.teamName,createdAt)
+    return res.status(200).send(newPlayer)
+}));
 /**
  * Mock DB helper functions
  */
