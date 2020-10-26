@@ -48,14 +48,19 @@ router.post('/player', asyncMiddleware(async (req, res) => {
 // Update player function
 router.put('/player', asyncMiddleware(async (req, res) => {
     const playerData = req.body;
-    const bal = 'uuid_1';
+    console.log(playerData);
+    const bal = 'uuid';
     const bal2 = 'createdAt';
-    const bal3 = 'uuid_2';
-    const player = [bal, playerData.name, playerData.score, playerData.teamName, bal2, bal3];
+
+    const player = db.find(function (player) { 
+        return player.uuid === playerData.uuid; 
+    });
     
-
-
-    db.push(player)  
+    player.name = playerData.name;
+    player.score = playerData.score;
+    player.teamName = playerData.teamName;
+    
+    
     return res.status(200).send(player);
     
     
