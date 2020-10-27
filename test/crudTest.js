@@ -202,15 +202,15 @@ describe('PLAYER: CRUD operations', () => {
     chai
       .request(app)
       .put('/api/player')
-      .send({ uuid: data[1].uuid, name: 'George Doe', score: 0, teamName: 'BLUE' })
+      .send({ uuid: 'not_found', name: 'George Doe', score: 0, teamName: 'BLUE' })
       .end((err, res) => {
           
           expect(res.status).to.equal(404);
           
           const result = res.body;
-          const expected = {};
+          const expected = 'error';
 
-          expect(result).to.equal(expected);
+          expect(result.message).to.equal(expected);
           
           expect(data.length).to.equal(9);
 
@@ -228,7 +228,7 @@ describe('PLAYER: CRUD operations', () => {
           
         expect(res.status).to.equal(200);
           
-        expect(!helper.playerFound(data[0], db.getData()))
+        expect(!helper.playerFound(data[0], data))
         expect(data.length).to.equal(8);
 
         done();
