@@ -54,35 +54,29 @@ router.put('/player', asyncMiddleware(async (req, res) => {
         return player.uuid === playerData.uuid; 
     });
     
-    player.name = playerData.name;
-    player.score = playerData.score;
-    player.teamName = playerData.teamName;
-    
-    
     if (player) {
+        player.name = playerData.name;
+        player.score = playerData.score;
+        player.teamName = playerData.teamName;
         return res.status(200).send(player);
     } else {
-        return res.status(404).send(player);
+        return res.status(404).send({});
     }
-    
+
     
 }));
 
 // Delete player function
 router.delete('/player', asyncMiddleware(async (req, res) => {
     const playerData = req.body;
-    
+
 
     const player = db.find(function (player) { 
         return player.uuid === playerData.uuid; 
     });
-    
-    player.name = playerData.name;
-    player.score = playerData.score;
-    player.teamName = playerData.teamName;
-    
-    
-     
+
+ 
+    db.splice(player, 1);
     return res.status(200).send(player);
     
     
