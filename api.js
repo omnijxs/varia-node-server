@@ -12,7 +12,9 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
     const result = {"foo":"bar"}
     return res.status(200).send(result);
 }));
- 
+/*******************/
+/* For crudTest.js */
+/*******************/
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
  
     const id = req.params.id
@@ -66,6 +68,38 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
     
 
 }));
+
+/********************/
+/* For queryTest.js */
+/********************/
+
+router.get('/players', asyncMiddleware(async (req, res) => {
+    const pl = req.query
+    if(pl.teamName && !pl.scoreHigherThan){
+        const tP = db.filter(player => player.teamName === pl.teamName)
+        return res.status(200).send(tP)
+    }else if(pl.scoreHigherThan){
+        const rTP = db.filter(player => player.teamName === pl.teamName && player.score > pl.scoreHigherThan)
+        return res.status(200).send(rTP)
+    }else if(pl.startedBefore && !pl.teamName && !pl.scoreHigherThan){
+        
+
+        
+        const rTP2 = db.filter(player => {
+            givenDate = new Date(pl.startedBefore)
+            givenDate = givenDate.getTime()
+            dateToCompare = new Date(player.createdAt)
+            dateToCompare = dateToCompare.getTime()
+            return dateToCompare < givenDate
+        })
+        console.log(rTP2)
+        return res.status(200).send(rTP2)
+    }else{
+        return res.status(200).send([])
+    }
+    
+}));
+
 
 /**
  * Mock DB helper functions
