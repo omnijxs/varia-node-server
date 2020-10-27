@@ -6,37 +6,28 @@ const helper = require('./testHelper.js');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-let dbconfig = require('../db/dev.js');
+const persistence = require('../db/persistence.js');
 let data = null;
 let db = null;
-
-/*
-(async () => {
-    data = await db.loadDB();
-})(); */
 
 describe('PLAYER: CRUD operations', () => {
 
     beforeEach(done => {
         (async () => {
-          db = await dbconfig.loadDB();
-          await dbconfig.populateDB();
-
-          data = dbconfig.getPlayerData();
+          db = await persistence.loadDB();
+          await persistence.populateDB();
+          data = persistence.getPlayerData();
           done();
-
       })();
-      // done();
     });
 
     afterEach(done => {
       (async () => {
-        db = await dbconfig.loadDB();
-        await dbconfig.emptyDB();
+        db = await persistence.loadDB();
+        await persistence.emptyDB();
         data = [];
         done();
       })();
-      // done();
     });
 
     it('Example: GET /api/foo', done => {

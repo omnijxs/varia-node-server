@@ -2,7 +2,7 @@ const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
 
-const dev = require('./db/dev.js')
+const dev = require('./db/persistence.js')
 const test = require('./db/test.js')
 
 app.use(bodyParser.urlencoded({ extended: false }));
