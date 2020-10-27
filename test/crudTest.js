@@ -190,9 +190,9 @@ describe('PLAYER: CRUD operations', () => {
           expect(res.status).to.equal(404);
           
           const result = res.body;
-          const expected = {};
+          const expected = 'error';
 
-          expect(result).to.equal(expected);
+          expect(result.message).to.equal(expected);
           
           expect(data.length).to.equal(9);
 

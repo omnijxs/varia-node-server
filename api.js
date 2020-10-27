@@ -81,6 +81,7 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
     
     
     
+    return res.status(200).send(db[5]);
 }));
 
 /**
@@ -107,6 +108,11 @@ function clearDB(){
 
 function getDB(){
     return db;
+}
+
+if(process.argv[2] === 'dev') {
+  console.log('Running in dev')
+  db = mockDB();
 }
 
 module.exports = router;
