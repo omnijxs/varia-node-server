@@ -71,6 +71,51 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
         return res.status(404).send(errormessage)
     }
 }));
+
+//?name=John Doe&teamName=RED&
+
+router.get('/players', asyncMiddleware(async (req, res) => {
+
+    const pl = req.query
+
+    if (pl.teamName && !pl.scoreHigherThan && !pl.startedBefore){ 
+
+        const sP = db.filter(player => player.teamName === pl.teamName)
+        return res.status(200).send(sP)
+
+    } else if (pl.teamName && pl.scoreHigherThan && !pl.startedBefore) {
+
+        const sP= db.filter(player => player.teamName === pl.teamName && player.score > pl.scoreHigherThan)
+        return res.status(200).send(sP)
+
+    }else if (!pl.teamName && !pl.scoreHigherThan && pl.startedBefore){
+
+        const sP= db.filter(player => {    
+            givenDate = new Date(pl.startedBefore)
+            givenDate = givenDate.getTime()
+
+            dateToCompare = new Date(player.createdAt)
+            dateToCompare = dateToCompare.getTime()
+           
+            return dateToCompare < givenDate
+        })
+    
+        return res.status(200).send(sP)
+    
+    } else { 
+        return res.status(404).send([])
+
+    }
+
+    
+   
+
+  
+
+
+}));
+
+
 /**
  * Mock DB helper functions
  */
