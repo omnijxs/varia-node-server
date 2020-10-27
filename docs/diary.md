@@ -7,6 +7,7 @@
 
 * Jatketaan tehtävää 2. Eli crudTest.js, queryTest.js ja yourTest.js.
 * HUOM! Tänään iltapäivällä EI kyberturvaa! Pidetään huomenna (ke 28.10) pidemmät tunnit (09.00 - 15.00)
+* Vilautetaan Postman-työkalua.
 
 <h2>26.10.2020</h2>
 
