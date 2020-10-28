@@ -102,8 +102,6 @@ describe('PLAYER: CRUD operations', () => {
               expect(result.teamName).to.equal('RED');
               expect(result.createdAt).to.not.be.null;
 
-              expect(data.length).to.equal(10);
-
               done();
           });
     });
@@ -124,8 +122,6 @@ describe('PLAYER: CRUD operations', () => {
             expect(result.score).to.equal(70100);
             expect(result.teamName).to.equal('BLUE');
             expect(result.createdAt).to.not.be.null;
-
-            expect(data.length).to.equal(10);
 
             done();
         });
