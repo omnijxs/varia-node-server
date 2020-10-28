@@ -8,7 +8,12 @@ let db = require('./db/persistence.js');
 let data = null;
 
 (async () => {
-    data = await db.loadDB();
+    const env = process.argv[2];
+    
+    if(env === 'dev') {
+        data = await db.loadDB(env);
+    }
+    
 })();
 
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
@@ -24,12 +29,5 @@ router.get('/player/:id', asyncMiddleware(async (req, res) => {
         return res.status(200).send({result});
     });  
 }));
-
-/* 
-if(process.argv[2] === 'dev') {
-  console.log('Running in dev')
-  db = mockDB();
-}
-*/
 
 module.exports = router;

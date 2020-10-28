@@ -14,7 +14,7 @@ describe('PLAYER: CRUD operations', () => {
 
     beforeEach(done => {
         (async () => {
-          db = await persistence.loadDB();
+          db = await persistence.loadDB('test');
           await persistence.populateDB();
           data = persistence.getPlayerData();
           done();
@@ -23,7 +23,7 @@ describe('PLAYER: CRUD operations', () => {
 
     afterEach(done => {
       (async () => {
-        db = await persistence.loadDB();
+        db = await persistence.loadDB('test');
         await persistence.emptyDB();
         data = [];
         done();
