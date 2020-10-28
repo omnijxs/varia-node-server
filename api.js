@@ -14,49 +14,6 @@ let data = null;
     } 
 })();
 
-router.get('/player/:id', asyncMiddleware(async (req, res) => {
-
-    const uuid = req.params.id;
-
-    data.collection('player').findOne({uuid: uuid}, function(err, result) {
-        if (err) {
-            return res.status(500).send(err);
-        };
-
-        if(result) {
-            return res.status(200).send(result);
-        } else {
-            return res.status(404).send();
-        }
-        
-    });  
-}));
-
-router.post('/player/', asyncMiddleware(async (req, res) => {
-
-    const payload = req.body;
-
-    const player = new Player();
-    player.uuid = 'whatevs'
-    player.createdAt = new Date();
-    player.name = payload.name;
-    player.teamName = payload.teamName;
-    player.score = payload.score;
-
-    data.collection('player').insertOne(player, function(err, result) {
-        if (err) {
-            return res.status(500).send(err);
-        };
-
-        if(result) {
-            return res.status(200).send(player);
-        } else {
-            return res.status(404).send();
-        }
-        
-    });  
-}));
-
 async function setDB(env) {
     data = await db.loadDB(env);
 }
