@@ -33,24 +33,7 @@ describe('PLAYER: CRUD operations', () => {
         done();
       })();
     });
-
-    it('Example: GET /api/foo', done => {
-      chai
-        .request(app)
-        .get('/api/foo')
-        .end((err, res) => {
-            
-            expect(res.status).to.equal(200);
-
-            const expected = "bar"; 
-            const result = res.body;
-
-            expect(result.foo).to.equal(expected);
-
-            done();
-        });
-    });
-
+    
     it('Get player by id: GET /api/player/:id [case 1]', done => {
       chai
         .request(app)
@@ -93,10 +76,10 @@ describe('PLAYER: CRUD operations', () => {
             
             expect(res.status).to.equal(404);
 
-            const expected = {}; 
+            const expected = ''; 
             const result = res.body;
 
-            expect(helper.playersEqual(expected, result)).to.be.true;
+            expect(result).to.equal(expected);
 
             done();
         });

@@ -21,7 +21,12 @@ router.get('/player/:id', asyncMiddleware(async (req, res) => {
         if (err) {
             return res.status(500).send(err);
         };
-        return res.status(200).send(result);
+
+        if(result) {
+            return res.status(200).send(result);
+        } else {
+            return res.status(404).send();
+        }
         
     });  
 }));
