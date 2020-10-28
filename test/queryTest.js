@@ -116,7 +116,7 @@ describe('PLAYER: QUERY operations', () => {
             
           expect(res.status).to.equal(200);
 
-          const expected = [data[1], data[2], data[3], data[5], data[8]]; 
+          const expected = [data[1], data[2], data[3], data[5], data[7], data[8]]; 
           const result = res.body;
   
           expect(helper.arraysEqual(result, expected)).to.be.true;

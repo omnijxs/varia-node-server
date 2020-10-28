@@ -10,7 +10,7 @@ let db = [];
  */
 router.get('/foo', asyncMiddleware(async (req, res) => {
     const result = {"foo":"bar"}
-    return res.status(200).send(db[5]);
+    return res.status(200).send(result);
 }));
 
 /**
