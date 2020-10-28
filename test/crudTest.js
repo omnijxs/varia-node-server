@@ -2,6 +2,7 @@ const expect = require('chai').expect;
 
 const app = require('../app.js');
 const chai = require('chai');
+const api = require('../api.js')
 const helper = require('./testHelper.js');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
@@ -10,12 +11,16 @@ const persistence = require('../db/persistence.js');
 let data = null;
 let db = null;
 
+(async () => {
+  db = await persistence.loadDB('test');
+})();
+
 describe('PLAYER: CRUD operations', () => {
 
     beforeEach(done => {
         (async () => {
-          db = await persistence.loadDB('test');
           await persistence.populateDB();
+          await api.setDB('test');
           data = persistence.getPlayerData();
           done();
       })();
@@ -23,7 +28,6 @@ describe('PLAYER: CRUD operations', () => {
 
     afterEach(done => {
       (async () => {
-        db = await persistence.loadDB('test');
         await persistence.emptyDB();
         data = [];
         done();
@@ -56,7 +60,7 @@ describe('PLAYER: CRUD operations', () => {
             expect(res.status).to.equal(200);
 
             const expected = data[0]; 
-            const result = res.body.result;
+            const result = res.body;
 
             expect(helper.playersEqual(expected, result)).to.be.true;
 

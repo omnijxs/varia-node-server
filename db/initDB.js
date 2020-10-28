@@ -19,7 +19,8 @@ function initDB(env) {
     mongo.connect(url, connectConfig, (err, client) => {
       if (err) throw err;
       initCollections(client);
-      console.log(`Connected to database: ${dbName}.`);  
+      console.log(`Connected to database: ${dbName}.`); 
+      // TODO exit gracefully 
     });
   }
   

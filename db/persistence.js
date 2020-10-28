@@ -81,7 +81,6 @@ const emptyDB = async () => {
   
 };
 
-
 /**
  * Dummy data for mongo collection player
  */
