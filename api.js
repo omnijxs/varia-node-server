@@ -14,6 +14,16 @@ let data = null;
     } 
 })();
 
+router.get('/players/', asyncMiddleware(async (req, res) => {
+    const queryParams = req.query
+
+    data.collection('player').find({teamName: queryParams.teamName}).toArray(function(err, result) {
+        if (err) throw err;
+        // console.log(result);
+        return res.status(200).send(result);
+      });
+}));
+
 async function setDB(env) {
     data = await db.loadDB(env);
 }

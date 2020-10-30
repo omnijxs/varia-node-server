@@ -11,9 +11,22 @@ class TestHelper {
     static playerFound(player, players) {
         return players.find(p => (p.uuid == player.uuid));
     }
-
+  
+     // A really crude implementation. Refactor
     static arraysEqual(a, b){
-        return JSON.stringify(a) === JSON.stringify(b);
+
+        let equal = a.length === b.length;
+
+        a.map(p1 => {
+            const found = b.find(p2 => this.playersEqual(p1, p2));
+
+            if(!found) {
+                equal = false;
+            }
+
+        });
+
+        return equal;
     }
 
 };
