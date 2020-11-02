@@ -151,7 +151,6 @@ describe('PLAYER: QUERY operations', () => {
         const expected = [data[2], data[8]]; 
         const result = res.body;
 
-        console.log(result);
         expect(helper.arraysEqual(result, expected)).to.be.true;
           
         done();
