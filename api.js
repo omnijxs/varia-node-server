@@ -76,24 +76,40 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
 router.get('/players', asyncMiddleware(async (req, res) => {
     const pl = req.query
     if(pl.teamName && !pl.scoreHigherThan){
-        const tP = db.filter(player => player.teamName === pl.teamName)
+        var tP = db.filter(player => player.teamName === pl.teamName)
         return res.status(200).send(tP)
-    }else if(pl.scoreHigherThan){
+    }else if(pl.scoreHigherThan && !pl.startedBefore){
         const rTP = db.filter(player => player.teamName === pl.teamName && player.score > pl.scoreHigherThan)
         return res.status(200).send(rTP)
     }else if(pl.startedBefore && !pl.teamName && !pl.scoreHigherThan){
-        
-
-        
         const rTP2 = db.filter(player => {
-            givenDate = new Date(pl.startedBefore)
-            givenDate = givenDate.getTime()
+            let dateString = pl.startedBefore;
+            dateString = dateString.substr(6, 4)+"-"+dateString.substr(3, 2)+"-"+dateString.substr(0, 2);
+            let date = new Date(dateString);
+            date = date.getTime()
+
             dateToCompare = new Date(player.createdAt)
             dateToCompare = dateToCompare.getTime()
-            return dateToCompare < givenDate
+
+            return dateToCompare < date
         })
-        console.log(rTP2)
         return res.status(200).send(rTP2)
+    }else if(pl.teamName && pl.startedBefore && pl.scoreHigherThan){
+        const rTP = db.filter(player => player.teamName === pl.teamName && player.startedBefore > pl.startedBefore && player.score < pl.scoreHigherThan)
+        
+        const vastaus = rTP.filter(player => {
+            let dateString = pl.startedBefore;
+            dateString = dateString.substr(6, 4)+"-"+dateString.substr(3, 2)+"-"+dateString.substr(0, 2);
+            let date = new Date(dateString);
+            date = date.getTime()
+            
+            dateToCompare = new Date(player.createdAt)
+            dateToCompare = dateToCompare.getTime()
+            
+            return dateToCompare < date
+        })
+        console.log(vastaus)
+        return res.status(200).send(vastaus)
     }else{
         return res.status(200).send([])
     }
@@ -127,6 +143,12 @@ function getDB(){
     return db;
 }
  
+
+if(process.argv[2] === 'dev') {
+  console.log('Running in dev')
+  db = mockDB();
+}
+
 module.exports = router;
 module.exports.mockDB = mockDB;
 module.exports.clearDB = clearDB;
