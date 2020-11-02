@@ -124,7 +124,7 @@ router.get('/players', asyncMiddleware(async (req, res) => {
         })
 
        
-        console.log(vastaus)
+
         return res.status(200).send(vastaus)
 
     } else { 
