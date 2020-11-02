@@ -90,18 +90,43 @@ router.get('/players', asyncMiddleware(async (req, res) => {
 
     }else if (!pl.teamName && !pl.scoreHigherThan && pl.startedBefore){
 
-        const sP= db.filter(player => {    
-            givenDate = new Date(pl.startedBefore)
-            givenDate = givenDate.getTime()
+        const sP= db.filter(player => {  
 
-            dateToCompare = new Date(player.createdAt)
-            dateToCompare = dateToCompare.getTime()
-           
-            return dateToCompare < givenDate
+            let sB = pl.startedBefore
+            sB = sB.substr(6,4)+"-"+sB.substr(3,2)+"-"+sB.substr(0,2)
+            let date = new Date(sB)
+            date = date.getTime()
+
+            //pD = player Date
+            pD = new Date(player.createdAt)
+            pD = pD.getTime()
+
+            return pD < date
         })
     
         return res.status(200).send(sP)
-    
+    }else if (pl.teamName && pl.scoreHigherThan && pl.startedBefore){
+
+        const sP= db.filter(player => player.teamName === pl.teamName && player.score > pl.scoreHigherThan)
+
+        const vastaus = sP.filter(player => {  
+
+            let sB = pl.startedBefore
+            sB = sB.substr(6,4)+"-"+sB.substr(3,2)+"-"+sB.substr(0,2)
+            let date = new Date(sB)
+            date = date.getTime()
+
+            //pD = player Date
+            pD = new Date(player.createdAt)
+            pD = pD.getTime()
+
+            return pD < date
+        })
+
+       
+        console.log(vastaus)
+        return res.status(200).send(vastaus)
+
     } else { 
         return res.status(404).send([])
 
