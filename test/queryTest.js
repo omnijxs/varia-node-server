@@ -179,12 +179,12 @@ describe('PLAYER: QUERY operations', () => {
   it('Query players by team name, started before and score greater than [case 3]', done => {
     chai
       .request(app)
-      .get('/api/players?teamName=BLUE&startedBefore=01-01-2020&scoreHigherThan=12000')
+      .get('/api/players?teamName=BLUE&startedBefore=01-02-2020&scoreHigherThan=12000')
       .end((err, res) => {
           
         expect(res.status).to.equal(200);
 
-        const expected = [data[0], data[3]]; 
+        const expected = [data[3]]; 
         const result = res.body;
 
         expect(helper.arraysEqual(result, expected)).to.be.true;
