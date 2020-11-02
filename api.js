@@ -95,7 +95,7 @@ router.get('/players', asyncMiddleware(async (req, res) => {
         })
         return res.status(200).send(rTP2)
     }else if(pl.teamName && pl.startedBefore && pl.scoreHigherThan){
-        const rTP = db.filter(player => player.teamName === pl.teamName && player.startedBefore > pl.startedBefore && player.score < pl.scoreHigherThan)
+        const rTP = db.filter(player => player.teamName === pl.teamName && player.score > pl.scoreHigherThan)
         
         const vastaus = rTP.filter(player => {
             let dateString = pl.startedBefore;
