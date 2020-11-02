@@ -116,6 +116,23 @@ router.get('/players', asyncMiddleware(async (req, res) => {
     
 }));
 
+/*******************/
+/* For yourTest.js */
+/*******************/
+
+router.get('/sort', asyncMiddleware(async (req, res) => {
+    const sort = db.sort((p1, p2) => {
+        return p2.score - p1.score
+    })
+    return res.status(200).send(sort);
+}));
+
+router.get('/change', asyncMiddleware(async (req, res) => {
+    const change = db.filter(player => player.teamName === pl.teamName)
+
+    
+}))
+
 
 /**
  * Mock DB helper functions

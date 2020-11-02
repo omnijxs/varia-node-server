@@ -1,6 +1,7 @@
 const expect = require('chai').expect;
 const db = require('../api.js');
 
+const helper = require('./testHelper.js');
 const app = require('../app.js');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -9,7 +10,50 @@ chai.use(chaiHttp);
 let data = [];
 
 describe('PLAYER: Complex operations', () => {
+  beforeEach(done => {
+    data = db.mockDB()
+    done();
+  });
 
+  afterEach(done => {
+    data = db.clearDB()
+    done();
+  });
+  it('Query players by score, sort by descending [case 1]', done => {
+    chai
+      .request(app)
+      .get('/api/sort')
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
+
+        const expected = [data[5], data[6], data[0], data[2], data[3], data[4], data[8], data[1], data[7]]; 
+        const result = res.body;
+
+        expect(helper.arraysEqualSort(result, expected)).to.be.true;
+          
+        done();
+
+      });
+  });
+  it('Query players by team name, change team name to another [case 1]', done => {
+    chai
+      .request(app)
+      .put('/api/change')
+      .send({teamName: 'BLUE' })
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
+
+        const expected = [data[0], data[1], data[3], data[6], data[7], data[8]]; 
+        const result = res.body;
+
+        expect(helper.arraysEqual(result, expected)).to.be.true;
+          
+        done();
+
+      });
+  });
   /** 
    * Implement the following TESTS and ENDPOINTS:
    * 
@@ -56,5 +100,4 @@ describe('PLAYER: Complex operations', () => {
    *
    *
    */
-
-});
+   })
