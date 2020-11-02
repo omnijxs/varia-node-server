@@ -142,6 +142,11 @@ function getDB(){
     return db;
 }
 
+if(process.argv[2] === 'dev') {
+  console.log('Running in dev')
+  db = mockDB();
+}
+
 module.exports = router;
 module.exports.mockDB = mockDB;
 module.exports.clearDB = clearDB;
