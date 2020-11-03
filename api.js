@@ -139,7 +139,49 @@ router.get('/players', asyncMiddleware(async (req, res) => {
 
 
 }));
+router.get('/juhaninTeht', asyncMiddleware(async (req, res) => {
+    const pl = req.query
 
+    teht1 = db.filter(player => player.name === pl.name)
+
+
+    return res.status(200).send(teht1)
+}));
+
+router.get('/teht', asyncMiddleware(async (req, res) => {
+
+    const sortedList = db.sort((p1, p2) => {
+        
+        return p2.score - p1.score
+        })
+
+    return res.status(200).send(sortedList)
+}));
+
+router.get('/teht', asyncMiddleware(async (req, res) => {
+
+    const sortedList = db.sort((p1, p2) => {
+        
+        return p2.score - p1.score
+        })
+
+    return res.status(200).send(sortedList)
+}));
+router.put('/updatingTeht', asyncMiddleware(async (req, res) => {
+
+
+    const pl = req.body
+
+    const updatedList = []
+    db.map(player => {
+        if (player.teamName == pl.fromTeamName){
+            player.teamName = pl.toTeamName
+            updatedList.push(player)
+        }
+    })
+    
+    return res.status(200).send(updatedList)
+}));
 
 /**
  * Mock DB helper functions

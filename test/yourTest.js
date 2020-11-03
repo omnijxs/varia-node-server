@@ -3,12 +3,74 @@ const db = require('../api.js');
 
 const app = require('../app.js');
 const chai = require('chai');
+const helper = require('./testHelper.js');
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 let data = [];
 
 describe('PLAYER: Complex operations', () => {
+  beforeEach(done => {
+    data = db.mockDB()
+    done();
+  });
+
+  afterEach(done => {
+    data = db.clearDB()
+    done();
+  });
+
+  it('test', done => {
+    chai
+      .request(app)
+      .get('/api/juhaninTeht?name=June+Worth')
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
+
+        const expected = [data[8]]; 
+        const result = res.body;
+
+        expect(helper.arraysEqual(result, expected)).to.be.true;
+
+        done();
+      });
+  });
+
+  it('juhanin tehtävä [1]', done => {
+    chai
+      .request(app)
+      .get('/api/teht')
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
+
+        const expected = [data[5],data[6],data[0],data[2],data[3],data[4],data[8],data[1],data[7]];
+        const result = res.body;
+
+        expect(helper.arraysEqualNew(result, expected)).to.be.true;
+
+        done();
+      });
+  });
+
+  it('juhanin tehtävä [2]', done => {
+    chai
+      .request(app)
+      .put('/api/updatingTeht?')
+      .send({fromTeamName: 'GREEN', toTeamName: 'BruhTeam'})
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
+
+        const expected = [data[5]];
+        const result = res.body;
+        expect(helper.arraysEqualNew(result, expected)).to.be.true;
+
+        done();
+      });
+  });
+
 
   /** 
    * Implement the following TESTS and ENDPOINTS:

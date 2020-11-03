@@ -16,6 +16,20 @@ class TestHelper {
         return JSON.stringify(a) === JSON.stringify(b);
     }
 
+    static arraysEqualNew(a, b){ 
+
+        let equal = a.length === b.length;
+ 
+        a.map(p1 => {
+        const found = b.find(p2 => this.playersEqual(p1, p2));
+ 
+        if(!found) {
+            equal = false;
+        }
+        
+    });
+    return equal;
+    }
 };
 
 module.exports = TestHelper;
