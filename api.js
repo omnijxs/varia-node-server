@@ -48,6 +48,7 @@ router.post('/player', asyncMiddleware(async (req, res) => {
 // Update player function
 router.put('/player', asyncMiddleware(async (req, res) => {
     const playerData = req.body;
+    const errormessage = {'message':'error'}
     
 
     const player = db.find(function (player) { 
@@ -60,7 +61,7 @@ router.put('/player', asyncMiddleware(async (req, res) => {
         player.teamName = playerData.teamName;
         return res.status(200).send(player);
     } else {
-        return res.status(404).send({});
+        return res.status(404).send(errormessage);
     }
 
     
@@ -79,10 +80,87 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
     db.splice(player, 1);
     return res.status(200).send(player);
     
+ 
     
-    
-    return res.status(200).send(db[5]);
+
 }));
+
+// Query player by team name AND who started playing before function
+router.get('/players', asyncMiddleware(async (req, res) => {
+    const queryParams = req.query;
+    let players = [];
+    
+
+    if (queryParams.teamName && !queryParams.scoreHigherThan) {
+        players = db.filter(function (player) { 
+            return player.teamName === queryParams.teamName; 
+        } );
+    }else 
+    if (queryParams.teamName && queryParams.scoreHigherThan) {
+        players = db.filter(function (player) { 
+            return player.teamName === queryParams.teamName && player.score > queryParams.scoreHigherThan; 
+        } );
+
+    } else 
+    if (queryParams.startedBefore) {
+        players = db.filter(function (player) {
+
+            // console.log(queryParams.startedBefore);
+            // console.log(player.createdAt);
+            
+            const dateStrings = queryParams.startedBefore.split('-');
+            //console.log(dateStrings);
+        
+            const dateToCompare = new Date()
+            // dateToCompare.setDate(parseInt(dateStrings[0]));
+            // dateToCompare = parseInt(dateStrings[0]);
+            
+            dateToCompare.setDate(parseInt(dateStrings[0]));
+            dateToCompare.setMonth(parseInt(dateStrings[1])-1);
+            dateToCompare.setYear(parseInt(dateStrings[2]));
+
+            //console.log(player.createdAt);
+            //console.log(dateToCompare);
+
+            const found = player.createdAt.getTime() < dateToCompare.getTime();
+
+            if (found) {
+                console.log(player.uuid);
+            }
+
+            return player.createdAt.getTime() < dateToCompare.getTime(); 
+        } );
+
+    } else {
+
+    }
+    //console.log(players.length);
+    return res.status(200).send(players);
+  
+}));
+//How to create a date
+    // createDate(parameter){
+    //     var d = new Date(parameter);
+    //    return d;
+    // }
+    // //How to output two dates
+    // dateFromUserInput(userInput){
+    //     var d = new Date(userInput);
+    //     d.setHours(2);
+    //    return d;
+    // }
+    // function CompareDate() {    
+    //     //Note: 00 is month i.e. January    
+    //     var dateOne = new Date(2010, 00, 15); //Year, Month, Date    
+    //     var dateTwo = new Date(2011, 00, 15); //Year, Month, Date    
+    //     if (dateOne > dateTwo) {    
+    //          alert("Date One is greater than Date Two.");    
+    //      }else {    
+    //          alert("Date Two is greater than Date One.");    
+    //      }    
+    //  }    
+    //  CompareDate();
+
 
 /**
  * Mock DB helper functions
