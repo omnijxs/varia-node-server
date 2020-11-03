@@ -127,10 +127,17 @@ router.get('/sort', asyncMiddleware(async (req, res) => {
     return res.status(200).send(sort);
 }));
 
-router.get('/change', asyncMiddleware(async (req, res) => {
-    const change = db.filter(player => player.teamName === pl.teamName)
-
-    
+router.put('/change', asyncMiddleware(async (req, res) => {
+    const pl = req.body
+    const changeTeamList = db.filter(player => player.teamName === pl.fromTeamName)
+    if(changeTeamList){
+        changeTeamList.map((player) => {
+            player.teamName = pl.toTeamName
+        })
+        return res.status(200).send(changeTeamList)
+    }else{
+        return res.status(404).send([])
+    }
 }))
 
 

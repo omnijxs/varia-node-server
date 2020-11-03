@@ -36,17 +36,37 @@ describe('PLAYER: Complex operations', () => {
 
       });
   });
-  it('Query players by team name, change team name to another [case 1]', done => {
+  it('Query players by team name, change team name to onion [case 1]', done => {
     chai
       .request(app)
       .put('/api/change')
-      .send({teamName: 'BLUE' })
+      .send({fromTeamName: 'GREEN',toTeamName: 'ONION' })
       .end((err, res) => {
           
         expect(res.status).to.equal(200);
 
-        const expected = [data[0], data[1], data[3], data[6], data[7], data[8]]; 
         const result = res.body;
+
+        const expected = [data[5]];
+
+        expect(helper.arraysEqual(result, expected)).to.be.true;
+          
+        done();
+
+      });
+  });
+  it('Query players by team name, change team name to onion [case 2]', done => {
+    chai
+      .request(app)
+      .put('/api/change')
+      .send({fromTeamName: 'ONION',toTeamName: 'GREEN' })
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
+
+        const result = res.body;
+
+        const expected = [];
 
         expect(helper.arraysEqual(result, expected)).to.be.true;
           
