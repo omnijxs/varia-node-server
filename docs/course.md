@@ -1,16 +1,16 @@
 <h1>COURSE</h1>
 
 * MongoDB
-    * Small theory      [TODO] 
+    * Small theory      [TODO]      Mon 9.11
 
-* varia-node-db         [cleanup]
+* varia-node-db         [cleanup]   Wed 10.11
 
-* HTML + CSS + REACT
+* HTML + CSS + REACT                Thu 11.11
     * Codeacademy * 4   [verify]
-    * Small project     [TODO]    
+    * Small project     [TODO]      Tue 17.11
 
 * Project
-    * Baseline repo     [TODO]
+    * Baseline repo     [in progress]      Wed 18.11
     * Must have requirements for all
         * backend: node.js
         * frontend: react.js
