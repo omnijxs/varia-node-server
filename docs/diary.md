@@ -7,6 +7,7 @@
 
 * Jatketaan tehtävää 2. Eli crudTest.js, queryTest.js ja yourTest.js.
 * Tällä viikolla olisi hyvä olla varia-node-server tehtävät valmiina. 
+* Ensi viikolla mennään uusiin aiheisiin (MongoDD, HTML, CSS, React)
 
 <h2>03.11.2020</h2>
 
