@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { asyncMiddleware } = require('./middleware');
 const Player = require('./data/player.js');
+const Member = require('./data/memberPlayers.js')
  
 let db = [];
  
@@ -140,6 +141,71 @@ router.put('/change', asyncMiddleware(async (req, res) => {
     }
 }))
 
+router.get('/teamSort', asyncMiddleware(async (req,res) => {
+    const teamList = {"teams":[]}
+    const map = new Map();
+    db.forEach((player) => {
+
+        const team = player.teamName;
+        const collection = map.get(team);
+
+        // Check if map exists, if not, do it.
+        if (!collection) {
+            map.set(team, [player]);
+        // If map is there, send player to it.
+        }else {
+            collection.push(player);
+        }});
+
+    for (const [teamName, players] of map) {
+        let score = 0
+        players.forEach((player) => {
+            score += player.score
+        })
+
+        let result = {"name":teamName, "totalScore":score }
+        teamList.teams.push(result)
+    }
+    teamList.teams.sort((latestTeam, teamToCompare) => {
+        return teamToCompare.totalScore - latestTeam.totalScore
+    })
+    return res.status(200).send(teamList)
+    
+}))
+
+router.get('/teamSortExpert', asyncMiddleware(async (req,res) => {
+    const teamList = {"teams":[]}
+    const map = new Map();
+    db.forEach((player) => {
+
+        const team = player.teamName;
+        const collection = map.get(team);
+
+        // Check if map exists, if not, do it.
+        if (!collection) {
+            map.set(team, [player]);
+        // If map is there, send player to it.
+        }else {
+            collection.push(player);
+        }});
+
+    for (const [teamName, players] of map) {
+        let members = []
+        let score = 0
+        players.forEach((player) => {
+            score += player.score
+            const member = new Member(player.uuid, player.name, player.createdAt)
+            members.push(member)
+        })
+        console.log(members)
+        let result = {"name":teamName, "totalScore":score, "members":members}
+        teamList.teams.push(result)
+    }
+    teamList.teams.sort((latestTeam, teamToCompare) => {
+        return teamToCompare.totalScore - latestTeam.totalScore
+    })
+    console.log(teamList)
+}))
 
 /**
  * Mock DB helper functions
