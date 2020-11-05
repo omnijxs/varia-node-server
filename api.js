@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { asyncMiddleware } = require('./middleware');
 const Player = require('./data/player.js');
-
+const Member = require('./data/memberPlayer.js');
 let db = [];
 
 /**
@@ -231,17 +231,18 @@ router.get('/mahotonTehtävä2', asyncMiddleware(async (req, res) => {
         }})
     
     for (const [teamName, players] of map) {
-
+        let members = []
         let totalScore = 0
         players.forEach(player => {
-            totalScore += player.score})
-        
-        let result = {"name":teamName, "totalScore":totalScore }
+            totalScore += player.score
+            const member = new Member(player.uuid, player.name, player.createdAt)
+            members.push(member)})
+        let result = {"name":teamName, "totalScore":totalScore, "members": members}
         teamsClass.teams.push(result)}
 
         teamsClass.teams.sort((latestTeam, teamToCompare) => {
             return teamToCompare.totalScore - latestTeam.totalScore})
-
+            console.log(teamsClass)
     return res.status(200).send(teamsClass)
 }));
 /**
