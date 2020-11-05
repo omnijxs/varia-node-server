@@ -71,7 +71,52 @@ describe('PLAYER: Complex operations', () => {
       });
   });
 
+  it('juhanin tehtävä [3]', done => {
+    chai
+      .request(app)
+      .get('/api/mahotonTeht?')
+      .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
 
+        const expected = {
+          "teams":[ 
+     
+        { "name": 'BLUE', totalScore: 38100 },
+        { "name": 'PURPLE', totalScore: 34660 },
+        { "name": 'RED', totalScore: 24900 },
+        { "name": 'GREEN', totalScore: 15440 }
+      ]}
+        const result = res.body;
+        expect(result["teams"].length).to.equal(expected["teams"].length)
+
+
+        done();
+      });
+    });
+  it('juhanin tehtävä [4]', done => {
+    chai
+      .request(app)
+      .get('/api/mahotonTehtävä2?')
+      .end((err, res) => {
+          
+          expect(res.status).to.equal(200);
+
+          const expected = {
+            "teams":[ 
+     
+        { "name": 'BLUE', totalScore: 38100 },
+        { "name": 'PURPLE', totalScore: 34660 },
+        { "name": 'RED', totalScore: 24900 },
+        { "name": 'GREEN', totalScore: 15440 }
+      ]}
+        const result = res.body;
+        expect(result["teams"].length).to.equal(expected["teams"].length)
+
+
+        done();
+      });
+    });
   /** 
    * Implement the following TESTS and ENDPOINTS:
    * 

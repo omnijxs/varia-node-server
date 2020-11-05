@@ -179,10 +179,71 @@ router.put('/updatingTeht', asyncMiddleware(async (req, res) => {
             updatedList.push(player)
         }
     })
-    
+
     return res.status(200).send(updatedList)
 }));
 
+router.get('/mahotonTeht', asyncMiddleware(async (req, res) => {
+
+    const teamsClass = {"teams":[]}
+   
+    const map = new Map();
+    db.forEach((player) => {
+
+        const team = player.teamName;
+        const collection = map.get(team);
+
+        if (!collection) {
+            map.set(team, [player]);
+        }else{
+        collection.push(player);
+        }})
+    
+    for (const [teamName, players] of map) {
+
+        let totalScore = 0
+        players.forEach(player => {
+            totalScore += player.score})
+        
+        let result = {"name":teamName, "totalScore":totalScore }
+        teamsClass.teams.push(result)}
+
+        teamsClass.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore})
+
+    return res.status(200).send(teamsClass)
+}));
+
+router.get('/mahotonTehtävä2', asyncMiddleware(async (req, res) => {
+
+    const teamsClass = {"teams":[]}
+   
+    const map = new Map();
+    db.forEach((player) => {
+
+        const team = player.teamName;
+        const collection = map.get(team);
+
+        if (!collection) {
+            map.set(team, [player]);
+        }else{
+        collection.push(player);
+        }})
+    
+    for (const [teamName, players] of map) {
+
+        let totalScore = 0
+        players.forEach(player => {
+            totalScore += player.score})
+        
+        let result = {"name":teamName, "totalScore":totalScore }
+        teamsClass.teams.push(result)}
+
+        teamsClass.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore})
+
+    return res.status(200).send(teamsClass)
+}));
 /**
  * Mock DB helper functions
  */
@@ -197,6 +258,8 @@ function mockDB(){
     const p7 = new Player('uuid_7', 'George Daffodil', 15440, 'PURPLE', new Date('2020-06-01T00:00:00.000Z'));
     const p8 = new Player('uuid_8', 'Mark Coe', 7800, 'PURPLE', new Date('2020-01-01T00:00:00.000Z'));
     const p9 = new Player('uuid_9', 'June Worth', 11420, 'PURPLE', new Date('2019-01-01T00:00:00.000Z'));
+
+
     db = [p1, p2, p3, p4, p5, p6, p7, p8, p9];
     return db;
 }
