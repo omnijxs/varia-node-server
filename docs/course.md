@@ -1,7 +1,7 @@
 <h1>COURSE</h1>
 
 * MongoDB
-    * Small theory      [TODO]
+    * Small theory      [TODO] 
 
 * varia-node-db         [cleanup]
 

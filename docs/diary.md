@@ -3,6 +3,11 @@
 
 <h1>Diary</h1>
 
+<h2>05.11.2020</h2>
+
+* Jatketaan tehtävää 2. Eli crudTest.js, queryTest.js ja yourTest.js.
+* Tällä viikolla olisi hyvä olla varia-node-server tehtävät valmiina. 
+
 <h2>03.11.2020</h2>
 
 * Jatketaan tehtävää 2. Eli crudTest.js, queryTest.js ja yourTest.js.
