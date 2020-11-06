@@ -14,6 +14,11 @@ let data = null;
     } 
 })();
 
+router.get('/foo', asyncMiddleware(async (req, res) => {
+    const result = {"foo":"bar"}
+    return res.status(200).send(result);
+}));
+
 // Endpoints here
 
 async function setDB(env) {
