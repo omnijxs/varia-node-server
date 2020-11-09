@@ -6,11 +6,19 @@
 
     brew update
 
-    sudo brew install mongodb
+    brew tap mongodb/brew
 
     brew install mongodb-community@4.4   
 
     brew services start mongodb/brew/mongodb-community
+
+<h2>GIT</h2>
+
+    git checkout feature/mongo-db
+
+    git checkout -b student/<GITHUB_TUNNARI>-db
+
+    git push --set-upstream origin student/<GITHUB-TUNNARI>-db
 
 <h2>Initalize db</h2>
 
@@ -25,3 +33,9 @@
     show collections
 
     db.player.find();
+
+<h2>Mongo docs</h2>
+
+    Basic queries and crud: https://docs.mongodb.com/manual/crud/ 
+
+    Simple intro: https://www.youtube.com/watch?v=-56x56UppqQ 
