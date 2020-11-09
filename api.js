@@ -31,9 +31,13 @@ router.post('/player/', asyncMiddleware(async (request, res) => {
     return res.status(200).send(newPlayer);
 }));
 router.put('/player/'), asyncMiddleware(async (request, res) => {
-    
-}
-
+    uuId = data[0].uuid
+    db.find(newPlayer)
+    const asd = newPlayer
+    db.size = 9;
+    return res.status(200).send(uuId, newPlayer)
+    }
+});
 
 /**
  * Mock DB helper functions
