@@ -197,14 +197,13 @@ router.get('/teamSortExpert', asyncMiddleware(async (req,res) => {
             const member = new Member(player.uuid, player.name, player.createdAt)
             members.push(member)
         })
-        console.log(members)
         let result = {"name":teamName, "totalScore":score, "members":members}
         teamList.teams.push(result)
     }
     teamList.teams.sort((latestTeam, teamToCompare) => {
         return teamToCompare.totalScore - latestTeam.totalScore
     })
-    console.log(teamList)
+    return res.status(200).send(teamList)
 }))
 
 /**
