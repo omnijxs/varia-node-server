@@ -22,6 +22,8 @@
 
 <h2>Initalize db</h2>
 
+    npm install 
+
     node db/initDB.js
 
 <h2>Start mongodb</h2>  
@@ -39,3 +41,5 @@
     Basic queries and crud: https://docs.mongodb.com/manual/crud/ 
 
     Simple intro: https://www.youtube.com/watch?v=-56x56UppqQ 
+
+    https://docs.google.com/presentation/d/1nDl_p4JDGiyHk27uuyF8TLTjVEC8ntNAdtWmQ0GTPT4/edit#slide=id.ga0f9b31190_0_12 
