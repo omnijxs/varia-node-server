@@ -113,8 +113,8 @@ describe('PLAYER: Complex operations', () => {
             { "name": 'GREEN', totalScore: 15440, members:[{uuid:"uuid_6"}] }
           ]}
           const result = res.body;
-          //expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
-          //expect(result.teams.length === expected.teams.length)
+          expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+          expect(result.teams.length === expected.teams.length)
           done();
       });
   });
