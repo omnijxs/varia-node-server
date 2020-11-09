@@ -3,6 +3,11 @@
 
 <h1>Diary</h1>
 
+<h2>09.11.2020</h2>
+
+* MongoDB. Pikainen intro ja vähän youtubea.
+* Asennetaan omille koneille mongo ja aloitetaan tehtävä 3 (mongo + node.js)
+
 <h2>05.11.2020</h2>
 
 * Jatketaan tehtävää 2. Eli crudTest.js, queryTest.js ja yourTest.js.
