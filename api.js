@@ -13,6 +13,65 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
     return res.status(200).send(result);
 }));
 
+router.get('/player/:id', asyncMiddleware(async (req, res) => {
+    const id = req.params.id;
+    const result = db.find(player => player.uuid === id);
+    if (result){
+        return res.status(200).send(result);
+    }else{
+        return res.status(404).send(result);
+    }
+}));
+
+router.post('/player', asyncMiddleware(async (req, res) => {
+    const payload = req.body;
+    const newid = 'ID'
+    const date = new Date()
+    const player = new Player (newid, payload.name, payload.score, payload.teamName, date)
+    
+    db.push(player);
+    return res.status(200).send(player);
+}));
+
+router.put('/player', asyncMiddleware(async (req, res) => {
+    const payload = req.body;
+    const id = payload.uuid;
+    const errormessage = {"message":"error"};
+    const player = db.find(player => player.uuid === id);
+    if (player){
+        player.uuid = payload.uuid;
+        player.name = payload.name;
+        player.score = payload.score;
+        player.teamName = payload.teamName;
+        return res.status(200).send(player);
+    }else{
+        return res.status(404).send(errormessage);
+    }
+}));
+
+router.delete('/player', asyncMiddleware(async (req, res) => {
+    const payload = req.body;
+
+    const player = db.find(function (player) {
+        return player.uuid === payload.uuid;
+    });
+    db.splice(player, 1);
+    return res.status(200).send(player);
+}));
+/*################################# */
+
+router.get('/players', asyncMiddleware(async (req, res) => {
+    const team = req.query.teamName;
+    const result = db.find(player => player.teamName === team);
+    if (result){
+        console.log(result);
+        return res.status(200).send(result);
+    }else{
+        return res.status(404).send(result);
+    }
+}));
+
+
 /**
  * Mock DB helper functions
  */
