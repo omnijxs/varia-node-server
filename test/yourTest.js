@@ -105,10 +105,22 @@ describe('PLAYER: Complex operations', () => {
           const expected = {
             "teams":[ 
      
-        { "name": 'BLUE', totalScore: 38100 },
-        { "name": 'PURPLE', totalScore: 34660 },
-        { "name": 'RED', totalScore: 24900 },
-        { "name": 'GREEN', totalScore: 15440 }
+              { name: 'BLUE', totalScore: 38100, members: [ 
+                { uuid: 'uuid_1', name: 'John Doe', createdAtYear: 2020 },
+                { uuid: 'uuid_2', name: 'Jane Doe', createdAtYear: 2019 },
+                { uuid: 'uuid_4', name: 'George Doe', createdAtYear: 2020 }
+            ]},
+              { name: 'PURPLE', totalScore: 34660, members: [
+                { uuid: 'uuid_3', name: 'John Coe', createdAtYear: 2019 },
+                { uuid: 'uuid_5', name: 'Jane Coe', createdAtYear: 2020 }
+              ]},
+              { name: 'RED', totalScore: 24900, members: [
+                { uuid: 'uuid_6', name: 'George Coe', createdAtYear: 2019 }
+              ]},
+              { name: 'GREEN', totalScore: 15440, members: [
+              {uuid: 'uuid_7', name: 'George Daffodil', createdAtYear: 2020},
+              { uuid: 'uuid_8', name: 'Mark Coe', createdAtYear: 2020 },
+              { uuid: 'uuid_9', name: 'June Worth', createdAtYear: 2019 }] }
       ]}
         const result = res.body;
         expect(result["teams"].length).to.equal(expected["teams"].length)

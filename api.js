@@ -236,13 +236,14 @@ router.get('/mahotonTehtävä2', asyncMiddleware(async (req, res) => {
         players.forEach(player => {
             totalScore += player.score
             const member = new Member(player.uuid, player.name, player.createdAt)
-            members.push(member)})
+            members.push(member)
+           
+        })
         let result = {"name":teamName, "totalScore":totalScore, "members": members}
         teamsClass.teams.push(result)}
 
         teamsClass.teams.sort((latestTeam, teamToCompare) => {
             return teamToCompare.totalScore - latestTeam.totalScore})
-            console.log(teamsClass)
     return res.status(200).send(teamsClass)
 }));
 /**
