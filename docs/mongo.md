@@ -14,6 +14,8 @@
 
 <h2>GIT</h2>
 
+    git fetch origin 
+    
     git checkout feature/mongo-db
 
     git checkout -b student/<GITHUB_TUNNARI>-db
