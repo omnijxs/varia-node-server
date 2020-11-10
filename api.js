@@ -65,10 +65,24 @@ router.get('/players', asyncMiddleware(async (req, res) => {
     let result
     if (queryParams.teamName && !queryParams.scoreHigherThan){
         result = db.filter(player => player.teamName === queryParams.teamName);
-    }else if(queryParams.teamName && queryParams.scoreHigherThan){
+    }else if(queryParams.teamName && queryParams.scoreHigherThan && !queryParams.startedBefore){
         result = db.filter(player => {
             return player.teamName === queryParams.teamName && player.score > queryParams.scoreHigherThan
-        })
+        });
+    }else if (queryParams.startedBefore && !queryParams.teamName){
+
+        const date1 = queryParams.startedBefore
+        const date2 = new Date(date1.split('-').reverse().join('-'));
+        result = db.filter(player => {
+            return player.createdAt < date2
+        });
+    }else if (queryParams.teamName && queryParams.startedBefore && queryParams.scoreHigherThan){
+        const date1 = queryParams.startedBefore
+        const date2 = new Date(date1.split('-').reverse().join('-'));
+        result = db.filter(player => {
+            console.log(date2);
+            return player.teamName === queryParams.teamName && player.createdAt < date2 && player.score > queryParams.scoreHigherThan
+        });
     }else{
 
     }
