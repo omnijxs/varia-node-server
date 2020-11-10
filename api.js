@@ -61,10 +61,20 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
 /*################################# */
 
 router.get('/players', asyncMiddleware(async (req, res) => {
-    const team = req.query.teamName;
-    const result = db.find(player => player.teamName === team);
+    const queryParams = req.query;
+    let result
+    if (queryParams.teamName && !queryParams.scoreHigherThan){
+        result = db.filter(player => player.teamName === queryParams.teamName);
+    }else if(queryParams.teamName && queryParams.scoreHigherThan){
+        result = db.filter(player => {
+            return player.teamName === queryParams.teamName && player.score > queryParams.scoreHigherThan
+        })
+    }else{
+
+    }
+    
+
     if (result){
-        console.log(result);
         return res.status(200).send(result);
     }else{
         return res.status(404).send(result);
