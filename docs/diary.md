@@ -6,7 +6,7 @@
 <h2>10.11.2020</h2>
 
 * Huom! Netti ei toimi paviljongissa joten käyttäkää oman kännykän nettiä (jos liittymä sen sallii)
-* node.js harjoituksia. Jos on tehnyt kaksi ensimmäistä tehtävä yourTest.js'stöä siirry tekemään node-mongo harjoituksia.
+* node.js harjoituksia. Jos on tehnyt kaksi ensimmäistä tehtävä yourTest.js'stä niin siirry tekemään node-mongo harjoituksia (eli tehtävä 3).
 
 <h2>09.11.2020</h2>
 
