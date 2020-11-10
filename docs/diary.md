@@ -3,6 +3,11 @@
 
 <h1>Diary</h1>
 
+<h2>10.11.2020</h2>
+
+* Huom! Netti ei toimi paviljongissa joten käyttäkää oman kännykän nettiä (jos liittymä sen sallii)
+* node.js harjoituksia. Jos on tehnyt kaksi ensimmäistä tehtävä yourTest.js'stöä siirry tekemään node-mongo harjoituksia.
+
 <h2>09.11.2020</h2>
 
 * Kello 10.00:
