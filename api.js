@@ -85,7 +85,7 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
 
 }));
 
-// Query player by team name AND who started playing before function
+// Query player by team name and score higher than function
 router.get('/players', asyncMiddleware(async (req, res) => {
     const queryParams = req.query;
     let players = [];
@@ -96,71 +96,123 @@ router.get('/players', asyncMiddleware(async (req, res) => {
             return player.teamName === queryParams.teamName; 
         } );
     }else 
-    if (queryParams.teamName && queryParams.scoreHigherThan) {
+    if (queryParams.teamName && queryParams.scoreHigherThan && !queryParams.startedBefore) {
         players = db.filter(function (player) { 
             return player.teamName === queryParams.teamName && player.score > queryParams.scoreHigherThan; 
         } );
 
     } else 
-    if (queryParams.startedBefore) {
+    //Query players who started playing before
+    if (queryParams.startedBefore && !queryParams.scoreHigherThan) {
         players = db.filter(function (player) {
-
-            // console.log(queryParams.startedBefore);
-            // console.log(player.createdAt);
             
             const dateStrings = queryParams.startedBefore.split('-');
-            //console.log(dateStrings);
         
-            const dateToCompare = new Date()
-            // dateToCompare.setDate(parseInt(dateStrings[0]));
-            // dateToCompare = parseInt(dateStrings[0]);
+            const dateToCompare = new Date();
             
             dateToCompare.setDate(parseInt(dateStrings[0]));
             dateToCompare.setMonth(parseInt(dateStrings[1])-1);
             dateToCompare.setYear(parseInt(dateStrings[2]));
-
-            //console.log(player.createdAt);
-            //console.log(dateToCompare);
-
+            
             const found = player.createdAt.getTime() < dateToCompare.getTime();
 
             if (found) {
-                console.log(player.uuid);
+                //console.log(player.uuid);
             }
 
             return player.createdAt.getTime() < dateToCompare.getTime(); 
         } );
 
+    } else 
+    if (queryParams.teamName && queryParams.startedBefore && 
+        queryParams.scoreHigherThan) {
+        players = db.filter(function (player) {
+            //console.log('foobar');
+            
+            const dateStrings = queryParams.startedBefore.split('-');
+        
+            const dateToCompare = new Date();
+            
+            dateToCompare.setDate(parseInt(dateStrings[0]));
+            dateToCompare.setMonth(parseInt(dateStrings[1])-1);
+            dateToCompare.setYear(parseInt(dateStrings[2]));
+            
+            const found = player.createdAt.getTime() < dateToCompare.getTime();
+
+            if (found) {
+                //console.log(player.uuid);
+            }
+
+            return player.teamName === queryParams.teamName && 
+            player.createdAt.getTime() < dateToCompare.getTime() && 
+            player.score > queryParams.scoreHigherThan;  
+        } );
     } else {
 
     }
-    //console.log(players.length);
+
     return res.status(200).send(players);
   
 }));
-//How to create a date
-    // createDate(parameter){
-    //     var d = new Date(parameter);
-    //    return d;
-    // }
-    // //How to output two dates
-    // dateFromUserInput(userInput){
-    //     var d = new Date(userInput);
-    //     d.setHours(2);
-    //    return d;
-    // }
-    // function CompareDate() {    
-    //     //Note: 00 is month i.e. January    
-    //     var dateOne = new Date(2010, 00, 15); //Year, Month, Date    
-    //     var dateTwo = new Date(2011, 00, 15); //Year, Month, Date    
-    //     if (dateOne > dateTwo) {    
-    //          alert("Date One is greater than Date Two.");    
-    //      }else {    
-    //          alert("Date Two is greater than Date One.");    
-    //      }    
-    //  }    
-    //  CompareDate();
+//------------------------------------------------------------------------
+// It returns all players sorted by score in descending order.
+router.get('/sort', asyncMiddleware(async (req, res) => {
+    
 
+    // Sort scores in descending order:
+    const result = db.sort(function(a, b){return b.score-a.score});
+    
+    
+    return res.status(200).send(result);
+    
+}));
+
+// It updates all players with a given team name to another team name.
+router.put('/update', asyncMiddleware(async (req, res) => {
+    const players = [];
+    const requestParams = req.body;
+    db.forEach(function (player) {
+        
+        if (player.teamName === requestParams.fromTeam) {
+            player.teamName = requestParams.toTeam;
+            players.push(player);
+        }
+        
+    });
+    
+    //console.log(db);
+    return res.status(200).send(players);
+    
+}));
+
+router.get('/return', asyncMiddleware(async (req, res) => {
+    const result = {"teams":[]}
+    
+    
+    function groupByTeams(data) {
+        // Find the teams
+        const teams = data.map(({ team }) => team);
+        const uniqueTeams = [...new Set(teams)];
+        console.log(uniqueTeams);
+      
+        // Map the array of unique values to return
+        // desired result.
+        return uniqueTeams.map(team => {
+          return {
+            team,
+            team_total_score: data.find((thisTeam) => thisTeam.team === team).team_total_score,
+            Players: data
+              .filter(thisTeam => thisTeam.team === team)
+              .map(({ player, player_id }) => ({ player_id, player }))
+          }
+        });
+      }
+      
+      groupByTeams(inputData);
+
+    return res.status(200).send(result);
+    
+}));
 
 /**
  * Mock DB helper functions
