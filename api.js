@@ -62,16 +62,22 @@ router.put('/player', asyncMiddleware(async(req,res) =>{
             if (err) throw err
             data.collection('player').findOne({uuid: required.uuid}, function(err, result) {
                 if (err) throw err
-                console.log(result)
                 if(result){
                     return res.status(200).send(result)
                 }else{
                     return res.status(404).send('')
                 }
             });
-        //console.log(result)
         }
     )
+}))
+
+router.delete('/player', asyncMiddleware(async(req,res) => {
+    const required = req.body
+    data.collection('player').deleteOne(
+        {uuid: required.uuid}
+     )
+     return res.status(200).send('')
 }))
 
 async function setDB(env) {
