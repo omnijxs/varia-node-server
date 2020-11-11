@@ -3,6 +3,11 @@
 
 <h1>Diary</h1>
 
+<h2>11.11.2020</h2>
+
+* Node-mongo harjoituksia.
+* Tänään lopetetaan 11:45. Eli safkan jälkeen ei tunteja. 
+
 <h2>10.11.2020</h2>
 
 * Huom! Netti ei toimi paviljongissa joten käyttäkää oman kännykän nettiä (jos liittymä sen sallii)
