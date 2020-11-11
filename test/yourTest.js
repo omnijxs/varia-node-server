@@ -1,15 +1,56 @@
 const expect = require('chai').expect;
-const db = require('../api.js');
 
 const app = require('../app.js');
 const chai = require('chai');
+const api = require('../api.js')
+const helper = require('./testHelper.js')
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-let data = [];
+const persistence = require('../db/persistence.js');
+let data = null;
+let db = null;
+
+(async () => {
+  db = await persistence.loadDB('test');
+})();
 
 describe('PLAYER: Complex operations', () => {
 
+  beforeEach(done => {
+    (async () => {
+      await persistence.populateDB();
+      await api.setDB('test');
+      data = persistence.getPlayerData();
+      done();
+    })();
+  });
+
+  afterEach(done => {
+    (async () => {
+      await persistence.emptyDB();
+      data = [];
+      done();
+    })();
+  });
+
+  it('Query players by score, sort by descending [case 1]', done => {
+    chai
+      .request(app)
+      .get('/api/sort')
+      .end((err, res) => {
+
+        expect(res.status).to.equal(200);
+
+        const expected = [data[5], data[6], data[0], data[2], data[3], data[4], data[8], data[1], data[7]]; 
+        const result = res.body;
+
+        expect(helper.arraysEqual(result, expected)).to.be.true;
+
+        done();
+
+      });
+  });
   /** 
    * Implement the following TESTS and ENDPOINTS:
    * 

@@ -6,6 +6,7 @@ let db = require('./db/persistence.js');
 const Player = require('./data/player');
 const { request } = require('chai');
 const { playerFound } = require('./test/testHelper');
+const { route } = require('./app');
 let data = null;
 
 (async () => {
@@ -22,6 +23,10 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
 }));
 
 // Endpoints here
+
+/*******************/
+/* For crudTest.js */
+/*******************/
 
 router.get('/player/:id', asyncMiddleware(async(req,res) =>{
     const id = req.params.id
@@ -79,6 +84,68 @@ router.delete('/player', asyncMiddleware(async(req,res) => {
      )
      return res.status(200).send('')
 }))
+
+/********************/
+/* For queryTest.js */
+/********************/
+
+router.get('/players', asyncMiddleware(async(req,res) => {
+    const required = req.query
+    if(required.teamName && !required.scoreHigherThan && !required.startedBefore)
+    {
+        data.collection('player').find({teamName: required.teamName}).toArray(function(err, result) {
+        if (err) throw err
+        if(result){
+            return res.status(200).send(result)
+        } 
+    })}else if(required.teamName && required.scoreHigherThan && !required.startedBefore)
+    {
+        const value = parseInt(required.scoreHigherThan)
+        data.collection('player').find({teamName:required.teamName,score:{$gte:value}}).toArray(function(err, result){
+        if (err) throw err
+        if(result){
+            return res.status(200).send(result)
+        } 
+    })}else if(required.startedBefore && !required.scoreHigherThan && !required.teamName){
+        let dateString = required.startedBefore;
+        dateString = dateString.substr(6, 4)+"-"+dateString.substr(3, 2)+"-"+dateString.substr(0, 2);
+        const date = new Date(dateString)
+        data.collection('player').find({createdAt:{$lt:date}}).toArray(function(err, result){
+            if (err) throw err
+            if(result){
+                return res.status(200).send(result)
+            }
+        })
+    }else if(required.teamName && required.startedBefore && required.scoreHigherThan){
+        let dateString = required.startedBefore;
+        dateString = dateString.substr(6, 4)+"-"+dateString.substr(3, 2)+"-"+dateString.substr(0, 2);
+        const date = new Date(dateString)
+        const value = parseInt(required.scoreHigherThan)
+        data.collection('player').find({teamName:required.teamName, createdAt:{$lt:date}, score:{$gte:value}}).toArray(function(err, result){
+           if(err) throw err
+           if(result){
+               return res.status(200).send(result)
+           }
+        })
+    }else{
+        return res.status(404).send('')
+    }
+}))
+
+/*******************/
+/* For yourTest.js */
+/*******************/
+
+router.get('/sort', asyncMiddleware(async (req, res) => {
+    var mysort = { score: -1 };
+    data.collection("customers").find().sort(mysort).toArray(function(err, result) {
+        if (err) throw err;
+        console.log(result);
+        return res.status(200).send(result)
+    });
+}));
+
+
 
 async function setDB(env) {
     data = await db.loadDB(env);
