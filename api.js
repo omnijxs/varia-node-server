@@ -162,7 +162,6 @@ router.get('/sort', asyncMiddleware(async (req, res) => {
 }));
 // It updates all players with a given team name to another team name.
 router.put('/update', asyncMiddleware(async (req, res) => {
-    //const players = [];
     const requestParams = req.body;
     
     data.collection('player').updateMany({teamName: requestParams.fromTeam}, 
@@ -178,35 +177,6 @@ router.put('/update', asyncMiddleware(async (req, res) => {
    });
 
 }));
-
-// router.get('/return', asyncMiddleware(async (req, res) => {
-//     const result = {"teams":[]}
-
-
-//     function groupByTeams(data) {
-//         // Find the teams
-//         const teams = data.map(({ team }) => team);
-//         const uniqueTeams = [...new Set(teams)];
-//         console.log(uniqueTeams);
-
-//         // Map the array of unique values to return
-//         // desired result.
-//         return uniqueTeams.map(team => {
-//           return {
-//             team,
-//             team_total_score: data.find((thisTeam) => thisTeam.team === team).team_total_score,
-//             Players: data
-//               .filter(thisTeam => thisTeam.team === team)
-//               .map(({ player, player_id }) => ({ player_id, player }))
-//           }
-//         });
-//       }
-
-//       groupByTeams(inputData);
-
-//     return res.status(200).send(result);
-
-// }));
 
 // Endpoints here
 
