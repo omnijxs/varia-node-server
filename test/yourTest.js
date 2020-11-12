@@ -89,6 +89,9 @@ describe('PLAYER: Complex operations', () => {
           const result = res.body;
 
           expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+          expect(result.teams[1].totalScore).to.be.equal(expected.teams[1].totalScore)
+          expect(result.teams[2].totalScore).to.be.equal(expected.teams[2].totalScore)
+          expect(result.teams[3].totalScore).to.be.equal(expected.teams[3].totalScore)
           expect(result.teams.length === expected.teams.length)
           done();
       });
@@ -112,6 +115,9 @@ describe('PLAYER: Complex operations', () => {
           const result = res.body;
 
           expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+          expect(result.teams[1].totalScore).to.be.equal(expected.teams[1].totalScore)
+          expect(result.teams[2].totalScore).to.be.equal(expected.teams[2].totalScore)
+          expect(result.teams[3].totalScore).to.be.equal(expected.teams[3].totalScore)
           expect(result.teams.length === expected.teams.length)
           done();
       });
