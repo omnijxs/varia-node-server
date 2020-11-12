@@ -3,7 +3,7 @@
 
 <h1>Diary</h1>
 
-<h2>11.11.2020</h2>
+<h2>12.11.2020</h2>
 
 * Node-mongo harjoituksia.
 * Kun on tehnyt loppuun node-mongon ja node-serverin aletaan siirtymään frontend puoleen. Siellä odottaa iso setti uusia codecademyja. 
