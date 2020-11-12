@@ -63,18 +63,41 @@ describe('PLAYER: Complex operations', () => {
         expect(res.status).to.equal(200);
 
         const expected = [data[5]];
+        expected[0].teamName = "ONION"
         const result = res.body;
-
         expect(helper.arraysEqual(result, expected)).to.be.true;
 
         done();
       })
   })
 
-  it('Query players by team and team total score, descending players by score', done => {
+  it('Query players by team and team total score, descending players by score [case 1]', done => {
     chai
       .request(app)
       .get('/api/teamSort')
+      .end((err, res) => {
+
+          expect(res.status).to.equal(200);
+
+          const expected = {
+            "teams": [
+            { "name": 'BLUE', totalScore: 38100 },
+            { "name": 'PURPLE', totalScore: 34660 },
+            { "name": 'RED', totalScore: 24900 },
+            { "name": 'GREEN', totalScore: 15440 }
+          ]}
+          const result = res.body;
+
+          expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+          expect(result.teams.length === expected.teams.length)
+          done();
+      });
+  });
+
+  it('Query players by team and team total score, descending players by score [case 2]', done => {
+    chai
+      .request(app)
+      .get('/api/teamSortExpert')
       .end((err, res) => {
 
           expect(res.status).to.equal(200);

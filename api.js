@@ -144,18 +144,28 @@ router.get('/sort', asyncMiddleware(async (req, res) => {
     });
 }));
 
-router.put('/change', asyncMiddleware(async (req, res) => {
+router.put('/change', asyncMiddleware(async(req,res) =>{
     const required = req.body
-    data.collection('player').find({teamName:required.fromTeamName}).toArray(function(err, result){
-        if (err) throw err
-        if(result){
-            result.teamName = required.toTeamName
-            return res.status(200).send(result)
-        }else{
-            return res.status(404).send([])
+    data.collection('player').updateMany(
+        {teamName:required.fromTeamName}, 
+        {$set:
+            {
+            teamName:required.toTeamName
+            }
+        },
+        function(err, result){
+            if (err) throw err
+            data.collection('player').find({teamName: required.toTeamName}).toArray(function(err, result) {
+                if (err) throw err
+                if(result){
+                    return res.status(200).send(result)
+                }else{
+                    return res.status(404).send('')
+                }
+            });
         }
-    });
-}));
+    )
+}))
 
 router.get('/teamSort', asyncMiddleware(async (req,res) => {
     const teamList = {"teams":[]}
@@ -177,7 +187,40 @@ router.get('/teamSort', asyncMiddleware(async (req,res) => {
         for (const [teamName, players] of map) {
             let score = 0
             players.forEach((player) => {
-                console.log(player)
+                score += player.score
+            })
+            
+            let result = {"name":teamName, "totalScore":score }
+            teamList.teams.push(result)
+        }
+        teamList.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore
+        })
+        return res.status(200).send(teamList)  
+    });  
+}))
+
+router.get('/teamSortExpert', asyncMiddleware(async (req,res) => {
+    const teamList = {"teams":[]}
+    const map = new Map();
+    data.collection('player').find({}).toArray(function(err, result){
+        const teamNames = []
+        result.forEach((player) => {
+            if (!teamNames.includes(player.teamName)){
+                teamNames.push(player.teamName)
+            }
+        })
+        teamNames.forEach((teamName) => {
+            const teamPlayers = result.filter(player => player.teamName === teamName) 
+            if(teamPlayers)
+            {
+                map.set(teamName, teamPlayers)
+            }  
+        })
+        for (const [teamName, players] of map) {
+            let score = 0
+            players.forEach((player) => {
+
                 score += player.score
             })
             
