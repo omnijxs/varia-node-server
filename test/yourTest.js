@@ -8,6 +8,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 const persistence = require('../db/persistence.js');
+const { connect } = require('mongodb');
 let data = null;
 let db = null;
 
@@ -51,6 +52,48 @@ describe('PLAYER: Complex operations', () => {
 
       });
   });
+
+  it('Query players by teamname, change teamname [case 1]', done => {
+    chai
+      .request(app)
+      .put('/api/change')
+      .send({fromTeamName: 'GREEN',toTeamName: 'ONION' })
+      .end((err,res) => {
+
+        expect(res.status).to.equal(200);
+
+        const expected = [data[5]];
+        const result = res.body;
+
+        expect(helper.arraysEqual(result, expected)).to.be.true;
+
+        done();
+      })
+  })
+
+  it('Query players by team and team total score, descending players by score', done => {
+    chai
+      .request(app)
+      .get('/api/teamSort')
+      .end((err, res) => {
+
+          expect(res.status).to.equal(200);
+
+          const expected = {
+            "teams": [
+            { "name": 'BLUE', totalScore: 38100 },
+            { "name": 'PURPLE', totalScore: 34660 },
+            { "name": 'RED', totalScore: 24900 },
+            { "name": 'GREEN', totalScore: 15440 }
+          ]}
+          const result = res.body;
+
+          expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+          expect(result.teams.length === expected.teams.length)
+          done();
+      });
+  });
+
   /** 
    * Implement the following TESTS and ENDPOINTS:
    * 
