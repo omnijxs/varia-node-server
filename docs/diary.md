@@ -5,7 +5,7 @@
 
 <h2>12.11.2020</h2>
 
-* Node-mongo harjoituksia.
+* Tänään pitäisi olla varia-node-server ja varia-node-mongo tehtyinä.
 * Kun on tehnyt loppuun node-mongon ja node-serverin aletaan siirtymään frontend puoleen. Siellä odottaa iso setti uusia codecademyja. 
 * Ensi maanantaina teille tulee uusi opettaja (Jarno Sundström).  Jatkatte silloin node-mongoja && codecademyja. Tällä hetkellä Jarno tulee pitämään ainakin kaikki teidän maanantain tunnit.
 * Linkit codecademyihin:
