@@ -84,6 +84,10 @@ describe('PLAYER: CRUD operations', () => {
       ]}
         const result = res.body;
         expect(result["teams"].length).to.equal(expected["teams"].length)
+        expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+        expect(result.teams[1].totalScore).to.be.equal(expected.teams[1].totalScore)
+        expect(result.teams[2].totalScore).to.be.equal(expected.teams[2].totalScore)
+        expect(result.teams[3].totalScore).to.be.equal(expected.teams[3].totalScore)
 
 
         done();
@@ -120,6 +124,10 @@ describe('PLAYER: CRUD operations', () => {
         ]}
         const result = res.body;
         expect(result["teams"].length).to.equal(expected["teams"].length)
+        expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+        expect(result.teams[1].totalScore).to.be.equal(expected.teams[1].totalScore)
+        expect(result.teams[2].totalScore).to.be.equal(expected.teams[2].totalScore)
+        expect(result.teams[3].totalScore).to.be.equal(expected.teams[3].totalScore)
   
   
         done();
