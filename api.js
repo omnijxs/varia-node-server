@@ -3,7 +3,8 @@ const router = express.Router();
 const { asyncMiddleware } = require('./middleware');
 
 let db = require('./db/persistence.js');
-const Player = require('./data/player');
+const Player = require('./data/player.js');
+const Member = require('./data/memberPlayers.js')
 const { request } = require('chai');
 const { playerFound } = require('./test/testHelper');
 const { route } = require('./app');
@@ -218,13 +219,15 @@ router.get('/teamSortExpert', asyncMiddleware(async (req,res) => {
             }  
         })
         for (const [teamName, players] of map) {
+            let members = []
             let score = 0
             players.forEach((player) => {
-
                 score += player.score
+                const member = new Member(player.uuid, player.name, player.createdAt)
+                members.push(member)
             })
             
-            let result = {"name":teamName, "totalScore":score }
+            let result = {"name":teamName, "totalScore":score, "members":members }
             teamList.teams.push(result)
         }
         teamList.teams.sort((latestTeam, teamToCompare) => {

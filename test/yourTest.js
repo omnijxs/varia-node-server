@@ -104,11 +104,11 @@ describe('PLAYER: Complex operations', () => {
 
           const expected = {
             "teams": [
-            { "name": 'BLUE', totalScore: 38100 },
-            { "name": 'PURPLE', totalScore: 34660 },
-            { "name": 'RED', totalScore: 24900 },
-            { "name": 'GREEN', totalScore: 15440 }
-          ]}
+              { "name": 'BLUE', totalScore: 38100, members:[{uuid:"uuid_1"}, {uuid:"uuid_2"}, {uuid:"uuid_4"}]},
+              { "name": 'PURPLE', totalScore: 34660, members:[{uuid:"uuid_3"},{uuid:"uuid_5"}]},
+              { "name": 'RED', totalScore: 24900, members:[{uuid:"uuid_7"},{uuid:"uuid_8"},{uuid:"uuid_9"} ] },
+              { "name": 'GREEN', totalScore: 15440, members:[{uuid:"uuid_6"}] }
+            ]}
           const result = res.body;
 
           expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
