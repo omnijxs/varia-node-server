@@ -4,6 +4,7 @@ const { asyncMiddleware } = require('./middleware');
 
 let db = require('./db/persistence.js');
 const Player = require('./data/player');
+const Member = require('./data/memberPlayer')
 let data = null;
 
 (async () => {
@@ -118,10 +119,103 @@ router.get('/players', asyncMiddleware(async (req, res) => {
     }}))
 
 
+    router.get('/DBTeht1', asyncMiddleware(async (req, res) => {
 
-//player => player.teamName === pl.teamName && player.score > pl.scoreHigherThan
+        data.collection("player").find({}).sort({score:-1}).toArray(function(err, result){
+            if (err) throw err
+    
+        return res.status(200).send(result)})
+    }));
+
+    router.put('/updatingmongoDBteht', asyncMiddleware(async (req, res) => {
+        const pl = req.body
 
 
+        data.collection('player').updateMany(
+        {uuid:pl.uuid},{$set:{teamName: pl.toTeamNameTeamName}},function(err, result){
+            if(err) throw err
+            data.collection('player').find({teamName:pl.fromTeamName}).toArray(function(err,result){ 
+                if (err) throw err
+               
+                    return res.status(200).send(result)
+                })});
+    
+
+    }))
+
+    router.get('/mahotonMongoDBTeht', asyncMiddleware(async (req, res) => {
+
+        const teamsClass = {"teams":[]}
+        const map = new Map();
+
+        data.collection("player").find({}).toArray(function(err, result){
+            if (err) throw err
+        
+            result.forEach((player) => {
+
+                const team = player.teamName;
+                const collection = map.get(team);
+        
+                if (!collection) {
+                    map.set(team, [player]);
+                }else{
+                collection.push(player);
+                }})
+        
+            for (const [teamName, players] of map) {
+        
+                let totalScore = 0
+                players.forEach(player => {
+                    totalScore += player.score})
+        
+                let result = {"name":teamName, "totalScore":totalScore }
+                teamsClass.teams.push(result)}
+        
+                teamsClass.teams.sort((latestTeam, teamToCompare) => {
+                    return teamToCompare.totalScore - latestTeam.totalScore})
+            return res.status(200).send(teamsClass)})
+    }));
+
+    router.get('/mahotonmongoDBTehtävä2', asyncMiddleware(async (req, res) => {
+
+        const teamsClass = {"teams":[]}
+    
+        const map = new Map();
+
+
+        data.collection("player").find({}).toArray(function(err, result){
+            if (err) throw err
+        
+            result.forEach((player) => {
+    
+            const team = player.teamName;
+            const collection = map.get(team);
+    
+            if (!collection) {
+                map.set(team, [player]);
+            }else{
+            collection.push(player);
+            }})
+    
+        for (const [teamName, players] of map) {
+            let members = []
+            let totalScore = 0
+            players.forEach(player => {
+                totalScore += player.score
+                const member = new Member(player.uuid, player.name, player.createdAt)
+                members.push(member)
+    
+            })
+            let result = {"name":teamName, "totalScore":totalScore, "members": members}
+            teamsClass.teams.push(result)}
+    
+            teamsClass.teams.sort((latestTeam, teamToCompare) => {
+                return teamToCompare.totalScore - latestTeam.totalScore})
+        return res.status(200).send(teamsClass)})
+    }));
+    
+
+    
 
 
 
