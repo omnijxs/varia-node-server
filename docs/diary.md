@@ -8,6 +8,12 @@
 * Node-mongo harjoituksia.
 * Kun on tehnyt loppuun node-mongon ja node-serverin aletaan siirtymään frontend puoleen. Siellä odottaa iso setti uusia codecademyja. 
 * Ensi maanantaina teille tulee uusi opettaja (Jarno Sundström).  Jatkatte silloin node-mongoja && codecademyja. Tällä hetkellä Jarno tulee pitämään ainakin kaikki teidän maanantain tunnit.
+* Linkit codecademyihin:
+
+https://www.codecademy.com/learn/learn-html 
+https://www.codecademy.com/learn/learn-css
+https://www.codecademy.com/learn/react-101
+https://www.codecademy.com/learn/react-102
 
 <h2>11.11.2020</h2>
 
