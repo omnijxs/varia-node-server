@@ -13,6 +13,7 @@ router.get('/foo', asyncMiddleware(async (req, res) => {
     return res.status(200).send(result);
 }));
 
+/* Get player by id */
 router.get('/player/:id', asyncMiddleware(async (req, res) => {
     const id = req.params.id;
     const result = db.find(player => player.uuid === id);
@@ -23,6 +24,7 @@ router.get('/player/:id', asyncMiddleware(async (req, res) => {
     }
 }));
 
+/* Create player */
 router.post('/player', asyncMiddleware(async (req, res) => {
     const payload = req.body;
     const newid = 'ID'
@@ -33,6 +35,7 @@ router.post('/player', asyncMiddleware(async (req, res) => {
     return res.status(200).send(player);
 }));
 
+/* Update player */
 router.put('/player', asyncMiddleware(async (req, res) => {
     const payload = req.body;
     const id = payload.uuid;
@@ -49,6 +52,7 @@ router.put('/player', asyncMiddleware(async (req, res) => {
     }
 }));
 
+/* Delete player */
 router.delete('/player', asyncMiddleware(async (req, res) => {
     const payload = req.body;
 
@@ -58,17 +62,21 @@ router.delete('/player', asyncMiddleware(async (req, res) => {
     db.splice(player, 1);
     return res.status(200).send(player);
 }));
-/*################################# */
+
+/***** QueryTest.js *****/
 
 router.get('/players', asyncMiddleware(async (req, res) => {
     const queryParams = req.query;
     let result
+    /* Query player by team name */
     if (queryParams.teamName && !queryParams.scoreHigherThan){
         result = db.filter(player => player.teamName === queryParams.teamName);
+    /* Query player by team name and score higher than */
     }else if(queryParams.teamName && queryParams.scoreHigherThan && !queryParams.startedBefore){
         result = db.filter(player => {
             return player.teamName === queryParams.teamName && player.score > queryParams.scoreHigherThan
         });
+    /* Query players who started playing before */
     }else if (queryParams.startedBefore && !queryParams.teamName){
 
         const date1 = queryParams.startedBefore
@@ -76,17 +84,28 @@ router.get('/players', asyncMiddleware(async (req, res) => {
         result = db.filter(player => {
             return player.createdAt < date2
         });
+    /* Query players by team name, started before and score greater than */
     }else if (queryParams.teamName && queryParams.startedBefore && queryParams.scoreHigherThan){
         const date1 = queryParams.startedBefore
         const date2 = new Date(date1.split('-').reverse().join('-'));
         result = db.filter(player => {
-            console.log(date2);
             return player.teamName === queryParams.teamName && player.createdAt < date2 && player.score > queryParams.scoreHigherThan
         });
     }else{
 
     }
     
+    if (result){
+        return res.status(200).send(result);
+    }else{
+        return res.status(404).send(result);
+    }
+}));
+/***** YourTest.js *****/
+router.get('/sort', asyncMiddleware(async (req, res) => {
+    result = db.sort((p1, p2) => {
+        return p2.score - p1.score
+    });
 
     if (result){
         return res.status(200).send(result);
@@ -94,6 +113,27 @@ router.get('/players', asyncMiddleware(async (req, res) => {
         return res.status(404).send(result);
     }
 }));
+
+router.put('/update', asyncMiddleware(async (req, res) => {
+    const payload = req.body;
+    console.log(payload);
+    const players = db.filter(function (player) {
+        return player.teamName === payload.fromTeamName;
+    });
+
+    if (players){
+        players.forEach(player => {
+            player.teamName = payload.toTeamName
+        });
+        console.log(players);
+        return res.status(200).send(players);
+    }else{
+        return res.status(404).send();
+    }
+}));
+
+
+
 
 
 /**
