@@ -3,6 +3,10 @@
 
 <h1>Diary</h1>
 
+<h2>16.11.2020</h2>
+
+* HTML/CSS. Codecademya ja pikku show HTML'stä by Jarno.
+
 <h2>12.11.2020</h2>
 
 * Tänään pitäisi olla varia-node-server ja varia-node-mongo tehtyinä.
