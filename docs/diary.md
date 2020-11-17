@@ -5,7 +5,7 @@
 
 <h2>17.11.2020</h2>
 
-* CSS by Codecademy.
+* Jatketaan mihin eilen jäätiin eli HTML/CSS Codecademystä.
 
 <h2>16.11.2020</h2>
 
