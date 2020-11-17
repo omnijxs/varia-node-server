@@ -80,16 +80,14 @@ router.get('/players', asyncMiddleware(async (req, res) => {
     const collection = data.collection('player')
     /* Query player by team name */
     if (queryParams.teamName && !queryParams.scoreHigherThan){
-        /*result = db.filter(player => player.teamName === queryParams.teamName);*/
+
         collection.find({teamName: queryParams.teamName}).toArray(function(err, result) {
         if (err) throw err;
         return res.status(200).send(result);
     });
     /* Query player by team name and score higher than */
     }else if(queryParams.teamName && queryParams.scoreHigherThan && !queryParams.startedBefore){
-        /*result = db.filter(player => {
-            return player.teamName === queryParams.teamName && player.score > queryParams.scoreHigherThan
-        });*/
+
         const scoreHigherThan = parseInt(queryParams.scoreHigherThan)
         collection.find({teamName: queryParams.teamName, score: { $gt: scoreHigherThan }}).toArray(function(err, result) {
             return res.status(200).send(result);
@@ -100,9 +98,7 @@ router.get('/players', asyncMiddleware(async (req, res) => {
 
         const date1 = queryParams.startedBefore
         const date2 = new Date(date1.split('-').reverse().join('-'));
-        /*result = db.filter(player => {
-            return player.createdAt < date2
-        });*/
+
         collection.find({createdAt: { $lt: date2 }}).toArray(function(err, result) {
             return res.status(200).send(result);
         });
@@ -112,9 +108,7 @@ router.get('/players', asyncMiddleware(async (req, res) => {
         const date1 = queryParams.startedBefore
         const date2 = new Date(date1.split('-').reverse().join('-'));
         const scoreHigherThan = parseInt(queryParams.scoreHigherThan)
-        /*result = db.filter(player => {
-            return player.teamName === queryParams.teamName && player.createdAt < date2 && player.score > queryParams.scoreHigherThan
-        });*/
+
         collection.find({teamName: queryParams.teamName, createdAt: { $lt: date2 }, score: { $gt: scoreHigherThan }}).toArray(function(err, result) {
             console.log(result)
             return res.status(200).send(result);
@@ -134,21 +128,7 @@ router.get('/sort', asyncMiddleware(async (req, res) => {
 }));
 
 router.put('/update', asyncMiddleware(async (req, res) => {
-    /*const payload = req.body;
-    console.log(payload)
-    const players = db.filter(function (player) {
-        return player.teamName === payload.fromTeamName;
-    });
 
-    if (players){
-        players.forEach(player => {
-            player.teamName = payload.toTeamName
-        });
-        console.log(players);
-        return res.status(200).send(players);
-    }else{
-        return res.status(404).send();
-    }*/
     const payload = req.body;
     const team = payload.teamName
     data.collection('player').updateMany({teamName: payload.fromTeamName},
