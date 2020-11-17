@@ -3,6 +3,10 @@
 
 <h1>Diary</h1>
 
+<h2>17.11.2020</h2>
+
+* CSS by Codecademy.
+
 <h2>16.11.2020</h2>
 
 * HTML/CSS. Codecademya ja pikku show HTML'stä by Jarno.
