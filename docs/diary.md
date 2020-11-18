@@ -5,7 +5,7 @@
 
 <h2>18.11.2020</h2>
 
-* CSS codecademystä. 
+* CSS Codecademystä. 
 * Tänään lopetetaan 11:45. Eli safkan jälkeen ei tunteja. Luokkaan saa tulla jatkamaan hommia mutta opettaja ei ole paikalla. 13.30 heitetään loputkin ulos.
 
 <h2>17.11.2020</h2>
