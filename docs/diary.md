@@ -3,6 +3,11 @@
 
 <h1>Diary</h1>
 
+<h2>18.11.2020</h2>
+
+* CSS codecademystä. 
+* Tänään lopetetaan 11:45. Eli safkan jälkeen ei tunteja. 
+
 <h2>17.11.2020</h2>
 
 * Jatketaan mihin eilen jäätiin eli HTML/CSS Codecademystä.
