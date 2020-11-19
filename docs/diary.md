@@ -3,6 +3,10 @@
 
 <h1>Diary</h1>
 
+<h2>19.11.2020</h2>
+
+* CSS Codecademysta loppuun ja vähintään react-1 tänään tehtynä.
+
 <h2>18.11.2020</h2>
 
 * CSS Codecademystä. Huomenna aletaan siirtymään Reactiin.
