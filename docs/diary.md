@@ -5,7 +5,7 @@
 
 <h2>19.11.2020</h2>
 
-* CSS Codecademysta loppuun ja vähintään react-1 tänään tehtynä.
+* CSS Codecademysta loppuun ja niin pitkälle react-1 kuin mahdollista.
 
 <h2>18.11.2020</h2>
 
