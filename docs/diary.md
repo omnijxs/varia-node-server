@@ -3,6 +3,15 @@
 
 <h1>Diary</h1>
 
+<h2>24.11.2020</h2>
+
+* Jos react-1 tehtynä Codecademysta sitten React harjoitus.
+* Ohjeet siihen löytyy: https://github.com/omnijxs/varia-react
+* Pikainen katsaus etävalmiuksiin:
+    * VSCode
+    * Git
+    * NPM (tai nvm)
+
 <h2>19.11.2020</h2>
 
 * CSS Codecademysta loppuun ja niin pitkälle react-1 kuin mahdollista.
