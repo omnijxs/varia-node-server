@@ -5,6 +5,15 @@
 
 <h2>24.11.2020</h2>
 
+* Näillä näkymin ollaan siirtymässä torstaina täyteen etäopetuksen.
+* Tänään lopetetaan 14.00 ja teillä on kotitehtävä
+
+    https://github.com/omnijxs/varia-node-server/blob/develop/docs/remote.md
+
+* Huomenna ollaan vielä koululla normaalisti.
+
+---
+
 * Jos react-1 tehtynä Codecademysta sitten React harjoitus.
 * Ohjeet siihen löytyy: https://github.com/omnijxs/varia-react
 * Pikainen katsaus etävalmiuksiin:

@@ -12,4 +12,4 @@ Windows 10.
 
 Kun olet asentanut kaikki ohjelmat noudata ohjeita jotka löytyvät: https://github.com/omnijxs/varia-react
 
-Kun olet tehnyt "Run the app" osion niin ota yhteys opettajaan.
+Kun olet tehnyt "Run the app" osion niin laita viesti opettajalle.
