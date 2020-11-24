@@ -10,8 +10,8 @@
 * Pikainen katsaus etävalmiuksiin:
     * VSCode
     * Git
-    * NPM (tai nvm)
-
+    * NPM 
+    
 <h2>19.11.2020</h2>
 
 * CSS Codecademysta loppuun ja niin pitkälle react-1 kuin mahdollista.
