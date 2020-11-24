@@ -6,11 +6,11 @@
 <h2>24.11.2020</h2>
 
 * Näillä näkymin ollaan siirtymässä torstaina täyteen etäopetuksen.
-* Tänään lopetetaan 14.00 ja teillä on kotitehtävä
+* Tänään lopetetaan 14.00 ja teillä on kotitehtävä:
 
     https://github.com/omnijxs/varia-node-server/blob/develop/docs/remote.md
 
-* Huomenna ollaan vielä koululla normaalisti.
+* Huomenna ollaan koululla normaalisti.
 
 ---
 
