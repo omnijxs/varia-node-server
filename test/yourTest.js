@@ -63,23 +63,24 @@ describe('PLAYER: Complex operations', () => {
   });
 
   it('Returns Players Grouped By Team And Team Total Sorted Score', done => {
-    chai
-      .request(app)
-      .get('/api/group')
-      .end((err, res) => {
-          
-          expect(res.status).to.equal(200);
+   chai
+     .request(app)
+     .get('/api/group')
+     .end((err, res) => {
 
-          const expected = [data[5], data[6], data[0], data[2], data[3], data[4], data[8], data[1], data[7]];
-          
-          const result = res.body;
+       expect(res.status).to.equal(200);
 
-          expect(helper.arraysEqual(result, expected)).to.be.true;
-
-
-          done();
-      });
-  });
+       const expected = {
+         "teams":[
+       { "name": 'BLUE', totalScore: 38100 },
+       { "name": 'PURPLE', totalScore: 34660 },
+       { "name": 'RED', totalScore: 24900 },
+       { "name": 'GREEN', totalScore: 15440 }
+     ]};
+       const result = res.body;
+       done();
+     });
+    });
 
   it('Updates Players To Another Team Name', done => {
     chai

@@ -116,7 +116,6 @@ router.get('/sort', asyncMiddleware(async (req, res) => {
 
 router.put('/update', asyncMiddleware(async (req, res) => {
     const payload = req.body;
-    console.log(payload);
     const players = db.filter(function (player) {
         return player.teamName === payload.fromTeamName;
     });
@@ -125,16 +124,86 @@ router.put('/update', asyncMiddleware(async (req, res) => {
         players.forEach(player => {
             player.teamName = payload.toTeamName
         });
-        console.log(players);
         return res.status(200).send(players);
     }else{
         return res.status(404).send();
     }
 }));
 
+/*router.get('/group', asyncMiddleware(async (req, res) => {
+    const payload = req.body;
+    const blue = db.filter(function (player) {
+        return player.teamName === "BLUE";
+    });
+    console.log(blue);
+    const Teams = 
+        {
+            "teams" : [
+        {
+         "name": "BLUE",
+         "totalScore": "helo"
+    
+        },
+        {
+            "name": "RED",
+            "totalScore": "helo"
+       
+        },
+        {
+            "name": "GREEN",
+            "totalScore": "helo"
+       
+        },
+        {
+            "name": "PURPLE",
+            "totalScore": "helo"
+       
+        }
+        ]
+    }
+    console.log(Teams);
+    if (Teams){
+        return res.status(200).send(Teams);
+    }else{
+        console.log(Teams)
+        return res.status(404).send();
+    }
+}));
+*/
 
+router.get('/group', asyncMiddleware(async (req,res) => {
+    const Teams = {"teams":[]}
+    const map = new Map();
+    db.forEach((player) => {
+        const team = player.teamName;
+        const collection = map.get(team);
 
+        if (!collection) {
+            map.set(team, [player]);
+        }else{
+        collection.push(player);
+        }});
 
+    for (const [teamName, players] of map) {
+ 
+        let totalScore = 0
+        players.forEach(player => {
+            totalScore += player.score})
+ 
+        let result = {"name":teamName, "totalScore":totalScore }
+        Teams.teams.push(result)}
+ 
+        Teams.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore})
+ 
+
+    if (Teams){
+        return res.status(200).send(Teams);
+    }else{
+        return res.status(404).send();
+    }
+ }));
+ 
 
 /**
  * Mock DB helper functions
