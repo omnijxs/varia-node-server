@@ -8,7 +8,7 @@
 * Jos react-1 tehtynä Codecademysta sitten React harjoitus.
 * Ohjeet siihen löytyy: https://github.com/omnijxs/varia-react
 
-* HUOMISESTA LÄHTIEN ETÄNÄ ELLEI TOISIN ILMOITETA.
+* HUOMISESTA LÄHTIEN ETÄNÄ KUNNES TOISIN ILMOITETAAN.
 * Huomenna kello 09.00 otetaan videopuhelu (DISCORD/TEAMS) josta aloitetaan huomisen hommat.
 
 <h2>24.11.2020</h2>
