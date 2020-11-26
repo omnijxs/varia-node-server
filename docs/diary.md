@@ -7,7 +7,7 @@
 
 * Etäpäivä.
 * Jokainen ottaa 
-    1) Aamun alussa screenshotin siitä kuin monta prosenttia on Codecademyn react-kurssia tehnyt.
+    1) 09.00 screenshotin siitä kuinka monta prosenttia on Codecademyn react-kurssia tehnyt.
     2) 14.30 toisen screenshotin siitä kuinka monta prosenttia on Codecademyn react-kurssia tehnyt
     3) Postaa nämä kuvat Discordiin mytipt19a kanavalle.
 
