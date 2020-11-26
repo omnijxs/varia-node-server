@@ -3,6 +3,20 @@
 
 <h1>Diary</h1>
 
+<h2>26.11.2020</h2>
+
+* Etäpäivä.
+* Jokainen ottaa 
+    1) Aamun alussa screenshotin siitä kuin monta prosenttia on Codecademyn react-kurssia tehnyt.
+    2) 14.30 toisen screenshotin siitä kuinka monta prosenttia on Codecademyn react-kurssia tehnyt
+    3) Postaa nämä kuvat Discordiin mytipt19a kanavalle.
+
+* Jokainen laittaa tänään npm'n ja varia-reactin toimimaan kotikoneella. Ohjeet https://github.com/omnijxs/varia-react. Tarkistan päivän lopuksi onko jokaisen branchi ilmestynyt Githubiin.
+
+* Katson läsnäolon screenshottien ja githubin branchin mukaan.
+
+* Opettaja on linjoilla 0900-1200 ja uudestaan 1430-1500. Jos tarvitsette apua olkaa noihin aikoihin yhteydessä. 
+
 <h2>25.11.2020</h2>
 
 * Jos react-1 tehtynä Codecademysta sitten React harjoitus.
