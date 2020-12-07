@@ -202,7 +202,40 @@ router.get('/group', asyncMiddleware(async (req,res) => {
     }else{
         return res.status(404).send();
     }
- }));
+}));
+
+router.get('/update', asyncMiddleware(async (req, res) => {
+    const teamsClass = {"teams":[]}
+    const map = new Map();
+    db.forEach((player) => {
+        const team = player.teamName;
+        const collection = map.get(team);
+
+        if (!collection) {
+            map.set(team, [player]);
+        }else{
+        collection.push(player);
+        }});
+
+    for (const [teamName, players] of map) {
+
+        let members = []
+        let totalScore = 0
+        players.forEach(player => {
+            const date = player.createdAt
+            totalScore += player.score
+            const member = {"uuid":player.uuid, "name":player.name, "createdAtYear":date.getFullYear()}
+            members.push(member)
+        });
+        console.log(members)
+        let result = {"name":teamName, "totalScore":totalScore, "members": members}
+        teamsClass.teams.push(result)}
+        teamsClass.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore})
+            console.log(teamsClass);
+    return res.status(200).send(teamsClass)
+}));
+ 
  
 
 /**
