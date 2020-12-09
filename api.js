@@ -122,6 +122,7 @@ router.get('/players', asyncMiddleware(async (req, res) => {
 router.get('/sort', asyncMiddleware(async (req, res) => {
     var mysort = { score: -1 };
     data.collection('player').find().sort(mysort).toArray(function(err, result) {
+        console.log(result);
         return res.status(200).send(result);
     });
     
@@ -134,7 +135,6 @@ router.put('/update', asyncMiddleware(async (req, res) => {
     data.collection('player').updateMany({teamName: payload.fromTeamName},
         {$set:{'teamName': payload.toTeamName}}, function(err, result){  
         data.collection('player').find({teamName: payload.toTeamName}).toArray(function(err, result) {
-            console.log(result)
             console.log()
             if (result){
                 return res.status(200).send(result);
@@ -145,7 +145,77 @@ router.put('/update', asyncMiddleware(async (req, res) => {
     });
 }));
 
-
+router.get('/group', asyncMiddleware(async (req,res) => {
+    const Teams = {"teams":[]}
+    const map = new Map();
+    data.collection('player').find({}).toArray(function(err, result){
+        const teamNames = []
+        result.forEach((player) => {
+            if (!teamNames.includes(player.teamName)){
+                teamNames.push(player.teamName)
+            }
+        })
+        teamNames.forEach((teamName) => {
+            const teamPlayers = result.filter(player => player.teamName === teamName)
+            if(teamPlayers)
+            {
+                map.set(teamName, teamPlayers)
+            } 
+        })
+        for (const [teamName, players] of map) {
+            let score = 0
+            players.forEach((player) => {
+                score += player.score
+            })
+           
+            let result = {"name":teamName, "totalScore":score }
+            Teams.teams.push(result)
+        }
+        Teams.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore
+        })
+        return res.status(200).send(Teams) 
+    }); 
+ }))
+ 
+ 
+ router.get('/updates', asyncMiddleware(async (req,res) => {
+    const Teams = {"teams":[]}
+    const map = new Map();
+    data.collection('player').find({}).toArray(function(err, result){
+        const teamNames = []
+        result.forEach((player) => {
+            if (!teamNames.includes(player.teamName)){
+                teamNames.push(player.teamName)
+            }
+        })
+        teamNames.forEach((teamName) => {
+            const teamPlayers = result.filter(player => player.teamName === teamName)
+            if(teamPlayers)
+            {
+                map.set(teamName, teamPlayers)
+            } 
+        })
+        for (const [teamName, players] of map) {
+            let members = []
+            let score = 0
+            players.forEach((player) => {
+ 
+                const date = player.createdAt
+                score += player.score
+                const member = {"uuid":player.uuid, "name":player.name, "createdAtYear":date.getFullYear()}
+                members.push(member)
+            })
+ 
+            let result = {"name":teamName, "totalScore":score, "members":members }
+            Teams.teams.push(result)
+        }
+        Teams.teams.sort((latestTeam, teamToCompare) => {
+            return teamToCompare.totalScore - latestTeam.totalScore
+        })
+        return res.status(200).send(Teams) 
+    }); 
+}));
 
  
 

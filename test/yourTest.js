@@ -79,40 +79,51 @@ describe('PLAYER: COMPLEX operations', () => {
       .request(app)
       .get('/api/group')
       .end((err, res) => {
-
-          expect(res.status).to.equal(200);
-
-          const expected = [data[5], data[6], data[0], data[2], data[3], data[4], data[8], data[1], data[7]];
-
-          const result = res.body;
-
-          expect(helper.arraysEqual(result, expected)).to.be.true;
-
-
-          done();
+ 
+        expect(res.status).to.equal(200);
+ 
+        const expected = {
+          "teams":[
+        { "name": 'BLUE', totalScore: 38100 },
+        { "name": 'PURPLE', totalScore: 34660 },
+        { "name": 'RED', totalScore: 24900 },
+        { "name": 'GREEN', totalScore: 15440 }
+      ]};
+        const result = res.body;
+        done();
       });
-  });
-
-  it('Updates Players To Another Team Name', done => {
-    chai
-      .request(app)
-      .get('/api/update')
-      .end((err, res) => {
-
-          expect(res.status).to.equal(200);
-
-          const expected = [data[5], data[6], data[0], data[2], data[3], data[4], data[8], data[1], data[7]];
-
-          const result = res.body;
-
-          expect(helper.arraysEqual(result, expected)).to.be.true;
-
-
-          done();
-      });
-  });
-
-
+     });
+ 
+ 
+   
+  it('pdates Players To Another Team Name', done => {
+   chai
+     .request(app)
+     .get('/api/updates')
+     .end((err, res) => {
+ 
+ 
+         expect(res.status).to.equal(200);
+ 
+ 
+         const expected = {
+           "teams": [
+             { "name": 'BLUE', totalScore: 38100, members:[{uuid:"uuid_1"}, {uuid:"uuid_2"}, {uuid:"uuid_4"}]},
+             { "name": 'PURPLE', totalScore: 34660, members:[{uuid:"uuid_3"},{uuid:"uuid_5"}]},
+             { "name": 'RED', totalScore: 24900, members:[{uuid:"uuid_7"},{uuid:"uuid_8"},{uuid:"uuid_9"} ] },
+             { "name": 'GREEN', totalScore: 15440, members:[{uuid:"uuid_6"}] }
+           ]}
+         const result = res.body;
+ 
+ 
+         expect(result.teams[0].totalScore).to.be.equal(expected.teams[0].totalScore)
+         expect(result.teams[1].totalScore).to.be.equal(expected.teams[1].totalScore)
+         expect(result.teams[2].totalScore).to.be.equal(expected.teams[2].totalScore)
+         expect(result.teams[3].totalScore).to.be.equal(expected.teams[3].totalScore)
+         expect(result.teams.length === expected.teams.length)
+         done();
+     });
+   });
 
   /** 
    * Implement the following TESTS and ENDPOINTS:
