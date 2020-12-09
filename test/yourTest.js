@@ -38,19 +38,19 @@ describe('PLAYER: COMPLEX operations', () => {
       .request(app)
       .get('/api/sort')
       .end((err, res) => {
+          
+        expect(res.status).to.equal(200);
 
-          expect(res.status).to.equal(200);
-
-          const expected = [data[5], data[6], data[0], data[2], data[3], data[4], data[8], data[1], data[7]];
-
-          const result = res.body;
+        const expected = [data[5], data[6], data[5], data[6], data[0], data[0], data[2], data[2], data[3], data[3], data[4], data[4], data[8], data[8], data[1], data[1], data[7], data[7]];
+          
+        const result = res.body;
 
           expect(helper.arraysEqual(result, expected)).to.be.true;
 
 
           done();
       });
-  }); 
+  });  
 
   it('Updates Players To Another Team Name', done => {
     chai

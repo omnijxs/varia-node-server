@@ -122,7 +122,6 @@ router.get('/players', asyncMiddleware(async (req, res) => {
 router.get('/sort', asyncMiddleware(async (req, res) => {
     var mysort = { score: -1 };
     data.collection('player').find().sort(mysort).toArray(function(err, result) {
-        console.log(result);
         return res.status(200).send(result);
     });
     
