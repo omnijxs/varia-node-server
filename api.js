@@ -205,7 +205,7 @@ router.get('/group', asyncMiddleware(async (req,res) => {
 }));
 
 router.get('/update', asyncMiddleware(async (req, res) => {
-    const teamsClass = {"teams":[]}
+    const Teams = {"teams":[]}
     const map = new Map();
     db.forEach((player) => {
         const team = player.teamName;
@@ -227,13 +227,11 @@ router.get('/update', asyncMiddleware(async (req, res) => {
             const member = {"uuid":player.uuid, "name":player.name, "createdAtYear":date.getFullYear()}
             members.push(member)
         });
-        console.log(members)
         let result = {"name":teamName, "totalScore":totalScore, "members": members}
-        teamsClass.teams.push(result)}
-        teamsClass.teams.sort((latestTeam, teamToCompare) => {
+        Teams.teams.push(result)}
+        Teams.teams.sort((latestTeam, teamToCompare) => {
             return teamToCompare.totalScore - latestTeam.totalScore})
-            console.log(teamsClass);
-    return res.status(200).send(teamsClass)
+    return res.status(200).send(Teams)
 }));
  
  
